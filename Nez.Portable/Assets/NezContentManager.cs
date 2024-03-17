@@ -14,6 +14,7 @@ using Nez.Tiled;
 using Microsoft.Xna.Framework.Audio;
 using Nez.BitmapFonts;
 using Nez.Aseprite;
+using Nez.Assets;
 
 
 namespace Nez.Systems
@@ -459,6 +460,11 @@ namespace Nez.Systems
 			}
 
 			return null;
+		}
+
+		protected override Stream OpenStream(string assetName)
+		{
+			return Resources.OpenFile(assetName + ".xnb");
 		}
 
 		/// <summary>
