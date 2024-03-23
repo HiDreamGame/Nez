@@ -15,7 +15,7 @@
 		/// <summary>
 		/// A value that is always zero.
 		/// </summary>
-		public static Fixed Zero = new Fixed(0);
+		public static Fixed Zero = new(0);
 
 
 		/// <summary>

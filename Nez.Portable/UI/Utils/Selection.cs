@@ -7,8 +7,8 @@ namespace Nez.UI
 	public class Selection<T> where T : class
 	{
 		Element element;
-		protected List<T> selected = new List<T>();
-		List<T> old = new List<T>();
+		protected List<T> selected = [];
+		List<T> old = [];
 		protected bool _isDisabled;
 		bool toggle;
 		protected bool multiple;

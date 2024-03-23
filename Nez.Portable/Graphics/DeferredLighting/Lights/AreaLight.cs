@@ -15,7 +15,7 @@ namespace Nez.DeferredLighting
 		/// <summary>
 		/// direction of the light
 		/// </summary>
-		public Vector3 Direction = new Vector3(500, 500, 50);
+		public Vector3 Direction = new(500, 500, 50);
 
 		/// <summary>
 		/// brightness of the light

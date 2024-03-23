@@ -21,7 +21,7 @@ namespace Nez
 		/// <param name="shakeDirection">Vector3.zero will result in a shake on just the x/y axis. any other values will result in the passed
 		/// in shakeDirection * intensity being the offset the camera is moved</param>
 		public void Shake(float shakeIntensity = 15f, float shakeDegredation = 0.9f,
-		                  Vector2 shakeDirection = default(Vector2))
+		                  Vector2 shakeDirection = default)
 		{
 			Enabled = true;
 			if (_shakeIntensity < shakeIntensity)

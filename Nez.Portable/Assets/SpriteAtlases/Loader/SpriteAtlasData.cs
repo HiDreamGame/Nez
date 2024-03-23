@@ -11,18 +11,20 @@ namespace Nez.Sprites
 	/// </summary>
 	internal class SpriteAtlasData
 	{
-		public List<string> Names = new List<string>();
-		public List<Rectangle> SourceRects = new List<Rectangle>();
-		public List<Vector2> Origins = new List<Vector2>();
+		public List<string> Names = [];
+		public List<Rectangle> SourceRects = [];
+		public List<Vector2> Origins = [];
 
-		public List<string> AnimationNames = new List<string>();
-		public List<int> AnimationFps = new List<int>();
-		public List<List<int>> AnimationFrames = new List<List<int>>();
+		public List<string> AnimationNames = [];
+		public List<int> AnimationFps = [];
+		public List<List<int>> AnimationFrames = [];
 
 		public SpriteAtlas AsSpriteAtlas(Texture2D texture)
 		{
-			var atlas = new SpriteAtlas();
-			atlas.Names = Names.ToArray();
+			var atlas = new SpriteAtlas
+			{
+				Names = Names.ToArray()
+			};
 			atlas.Sprites = new Sprite[atlas.Names.Length];
 
 			for (var i = 0; i < atlas.Sprites.Length; i++)

@@ -53,10 +53,8 @@ namespace Nez
 
 		public override void Update()
 		{
-			if (_textField != null)
-				_textField.SetText(GetValue<int>().ToString());
-			if (_slider != null)
-				_slider.SetValue(GetValue<int>());
+			_textField?.SetText(GetValue<int>().ToString());
+			_slider?.SetValue(GetValue<int>());
 		}
 	}
 }

@@ -18,8 +18,8 @@ namespace Nez
 
 		TouchCollection _previousTouches;
 		TouchCollection _currentTouches;
-		List<GestureSample> _previousGestures = new List<GestureSample>();
-		List<GestureSample> _currentGestures = new List<GestureSample>();
+		List<GestureSample> _previousGestures = [];
+		List<GestureSample> _currentGestures = [];
 
 		bool _isConnected;
 

@@ -87,7 +87,7 @@ namespace Nez.Aseprite
 		{
 			using (var stream = TitleContainer.OpenStream(name))
 			{
-				using (BinaryReader reader = new BinaryReader(stream))
+				using (BinaryReader reader = new(stream))
 				{
 					return ReadAsepriteFile(reader, name, premultiplyAlpha);
 				}
@@ -121,7 +121,7 @@ namespace Nez.Aseprite
 			{
 				try
 				{
-					using (BinaryReader reader = new BinaryReader(stream))
+					using (BinaryReader reader = new(stream))
 					{
 						file = ReadAsepriteFile(reader, name, premultiplyAlpha);
 					}
@@ -183,14 +183,14 @@ namespace Nez.Aseprite
 			reader.IgnoreDword();
 			byte transparentIndex = reader.ReadByte();
 
-			AsepritePalette palette = new AsepritePalette(transparentIndex);
-			List<AsepriteFrame> frames = new List<AsepriteFrame>();
-			List<AsepriteLayer> layers = new List<AsepriteLayer>();
-			List<AsepriteTag> tags = new List<AsepriteTag>();
-			List<AsepriteSlice> slices = new List<AsepriteSlice>();
-			List<AsepriteTileset> tilesets = new List<AsepriteTileset>();
-			List<string> warnings = new List<string>();
-			AsepriteUserData spriteUserData = new AsepriteUserData();
+			AsepritePalette palette = new(transparentIndex);
+			List<AsepriteFrame> frames = [];
+			List<AsepriteLayer> layers = [];
+			List<AsepriteTag> tags = [];
+			List<AsepriteSlice> slices = [];
+			List<AsepriteTileset> tilesets = [];
+			List<string> warnings = [];
+			AsepriteUserData spriteUserData = new();
 
 			if (!isLayerOpacityValid)
 			{
@@ -214,7 +214,7 @@ namespace Nez.Aseprite
 			//  Read frame-by-frame until all frames are read.
 			for (int frameNum = 0; frameNum < nFrames; frameNum++)
 			{
-				List<AsepriteCel> cels = new List<AsepriteCel>();
+				List<AsepriteCel> cels = [];
 
 				//  Reference to the last chunk that can have user data so we can apply a User Data chunk to it when one
 				//	is read.
@@ -325,7 +325,7 @@ namespace Nez.Aseprite
 							reader.IgnoreBytes(7);
 
 							AsepriteCel cel = null;
-							Point celPosition = new Point(celXPosition, celYPosition);
+							Point celPosition = new(celXPosition, celYPosition);
 							AsepriteLayer celLayer = layers[celLayerIndex];
 
 							switch (celType)
@@ -390,7 +390,7 @@ namespace Nez.Aseprite
 											uint yFlip = value & TILE_FLIP_Y_MASK;
 											uint rotate = value & TILE_90CW_ROTATION_MASK;
 
-											AsepriteTile tile = new AsepriteTile(tileId, xFlip, yFlip, rotate);
+											AsepriteTile tile = new(tileId, xFlip, yFlip, rotate);
 											tiles[i] = tile;
 										}
 
@@ -432,7 +432,7 @@ namespace Nez.Aseprite
 									reader.IgnoreByte();
 									string tagName = reader.ReadAsepriteString();
 									Color tagColor = premultiplyAlpha ? Color.FromNonPremultiplied(r, g, b, byte.MaxValue) : new Color(r, g, b, byte.MaxValue);
-									AsepriteTag tag = new AsepriteTag(fromFrame, toFrame, loopDirection, tagColor, tagName);
+									AsepriteTag tag = new(fromFrame, toFrame, loopDirection, tagColor, tagName);
 									tags.Add(tag);
 								}
 
@@ -549,7 +549,7 @@ namespace Nez.Aseprite
 								bool isNinePatch = HasFlag(sliceFlags, ASE_SLICE_FLAGS_IS_NINE_PATCH);
 								bool hasPivot = HasFlag(sliceFlags, ASE_SLICE_FLAGS_HAS_PIVOT);
 
-								AsepriteSlice slice = new AsepriteSlice(isNinePatch, hasPivot, sliceName);
+								AsepriteSlice slice = new(isNinePatch, hasPivot, sliceName);
 
 								for (uint i = 0; i < sliceKeyCount; i++)
 								{
@@ -559,7 +559,7 @@ namespace Nez.Aseprite
 									uint sliceWidth = reader.ReadDword();
 									uint sliceHeight = reader.ReadDword();
 
-									Rectangle sliceBounds = new Rectangle(sliceXPosition, sliceYPosition, (int)sliceWidth, (int)sliceHeight);
+									Rectangle sliceBounds = new(sliceXPosition, sliceYPosition, (int)sliceWidth, (int)sliceHeight);
 									Rectangle? sliceCenterBounds = null;
 									Point? slicePivotPoint = null;
 
@@ -579,7 +579,7 @@ namespace Nez.Aseprite
 										slicePivotPoint = new Point(pivotX, pivotY);
 									}
 
-									AsepriteSliceKey key = new AsepriteSliceKey(slice, (int)startFrame, sliceBounds, sliceCenterBounds, slicePivotPoint);
+									AsepriteSliceKey key = new(slice, (int)startFrame, sliceBounds, sliceCenterBounds, slicePivotPoint);
 									slice.Keys.Add(key);
 								}
 
@@ -611,7 +611,7 @@ namespace Nez.Aseprite
 									byte[] compressedData = reader.ReadBytes((int)compressedDataLength);
 									byte[] pixelData = Deflate(compressedData);
 									Color[] pixels = PixelsToColor(pixelData, colorDepth, palette, premultiplyAlpha);
-									AsepriteTileset tileset = new AsepriteTileset((int)tilesetID, (int)tileCount, tileWidth, tileHeight, tilesetName, pixels);
+									AsepriteTileset tileset = new((int)tilesetID, (int)tileCount, tileWidth, tileHeight, tilesetName, pixels);
 									tilesets.Add(tileset);
 								}
 								else
@@ -655,7 +655,7 @@ namespace Nez.Aseprite
 					reader.BaseStream.Seek(chunkEnd, SeekOrigin.Begin);
 				}
 
-				AsepriteFrame frame = new AsepriteFrame($"{name}_{frameNum}", duration, cels, canvasWidth, canvasHeight);
+				AsepriteFrame frame = new($"{name}_{frameNum}", duration, cels, canvasWidth, canvasHeight);
 				frames.Add(frame);
 			}
 
@@ -738,14 +738,14 @@ namespace Nez.Aseprite
 
 		private static byte[] Deflate(byte[] buffer)
 		{
-			using (MemoryStream compressedStream = new MemoryStream(buffer))
+			using (MemoryStream compressedStream = new(buffer))
 			{
 				//	First 2 bytes are the zlib header information, skip it, we don't need it
 				compressedStream.Seek(2, SeekOrigin.Begin);
 
-				using (MemoryStream decompressedStream = new MemoryStream())
+				using (MemoryStream decompressedStream = new())
 				{
-					using (DeflateStream deflateStream = new DeflateStream(compressedStream, CompressionMode.Decompress))
+					using (DeflateStream deflateStream = new(compressedStream, CompressionMode.Decompress))
 					{
 						deflateStream.CopyTo(decompressedStream);
 						return decompressedStream.ToArray();

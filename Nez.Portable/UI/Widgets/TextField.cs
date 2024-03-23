@@ -57,7 +57,7 @@ namespace Nez.UI
 		protected int cursor, selectionStart;
 		protected bool hasSelection;
 		protected bool writeEnters;
-		List<float> glyphPositions = new List<float>(15);
+		List<float> glyphPositions = new(15);
 
 		float _preferredWidth = 150;
 		TextFieldStyle style;
@@ -67,7 +67,7 @@ namespace Nez.UI
 		bool focusTraversal = true, onlyFontChars = true, disabled;
 		int textHAlign = AlignInternal.Left;
 		float selectionX, selectionWidth;
-		StringBuilder _textBuffer = new StringBuilder();
+		StringBuilder _textBuffer = new();
 
 		bool passwordMode;
 		StringBuilder passwordBuffer;
@@ -130,8 +130,7 @@ namespace Nez.UI
 			selectionStart = cursor;
 			hasSelection = true;
 			var stage = GetStage();
-			if (stage != null)
-				stage.SetKeyboardFocus(this as IKeyboardListener);
+			stage?.SetKeyboardFocus(this as IKeyboardListener);
 
 			return true;
 		}
@@ -287,8 +286,7 @@ namespace Nez.UI
 
 			if (repeat)
 			{
-				if (_keyRepeatTimer != null)
-					_keyRepeatTimer.Stop();
+				_keyRepeatTimer?.Stop();
 				_keyRepeatTimer = Core.Schedule(_keyRepeatTime, true, this,
 					t => (t.Context as IKeyboardListener).KeyDown(key));
 			}
@@ -347,13 +345,13 @@ namespace Nez.UI
 					{
 						if (backspacePressed && cursor > 0)
 						{
-							text = text.Substring(0, cursor - 1) + text.Substring(cursor--);
+							text = text[..(cursor - 1)] + text[cursor--..];
 							renderOffset = 0;
 						}
 
 						if (deletePressed && cursor < text.Length)
 						{
-							text = text.Substring(0, cursor) + text.Substring(cursor + 1);
+							text = text[..cursor] + text[(cursor + 1)..];
 						}
 					}
 
@@ -454,7 +452,7 @@ namespace Nez.UI
 				}
 			}
 
-			return new int[] { left, right };
+			return [left, right];
 		}
 
 
@@ -641,7 +639,7 @@ namespace Nez.UI
 			else
 			{
 				var col = ColorExt.Create(fontColor, (int)(fontColor.A * parentAlpha));
-				var t = displayText.Substring(visibleTextStart, visibleTextEnd - visibleTextStart);
+				var t = displayText[visibleTextStart..visibleTextEnd];
 				batcher.DrawString(font, t, new Vector2(x + bgLeftWidth + textOffset, y + textY + yOffset),
 					col);
 			}
@@ -858,7 +856,7 @@ namespace Nez.UI
 			if (to.Length == 0)
 				return text;
 
-			return to.Substring(0, position) + text + to.Substring(position, to.Length - position);
+			return to[..position] + text + to[position..];
 		}
 
 
@@ -868,8 +866,8 @@ namespace Nez.UI
 			var to = cursor;
 			var minIndex = Math.Min(from, to);
 			var maxIndex = Math.Max(from, to);
-			var newText = (minIndex > 0 ? text.Substring(0, minIndex) : "")
-						  + (maxIndex < text.Length ? text.Substring(maxIndex, text.Length - maxIndex) : "");
+			var newText = (minIndex > 0 ? text[..minIndex] : "")
+						  + (maxIndex < text.Length ? text[maxIndex..] : "");
 
 			if (fireChangeEvent)
 				ChangeText(text, newText);
@@ -1034,8 +1032,7 @@ namespace Nez.UI
 
 			text = newText;
 
-			if (OnTextChanged != null)
-				OnTextChanged(this, text);
+			OnTextChanged?.Invoke(this, text);
 		}
 
 
@@ -1342,9 +1339,11 @@ namespace Nez.UI
 		public static TextFieldStyle Create(Color fontColor, Color cursorColor, Color selectionColor,
 											Color backgroundColor)
 		{
-			var cursor = new PrimitiveDrawable(cursorColor);
-			cursor.MinWidth = 1;
-			cursor.LeftWidth = 4;
+			var cursor = new PrimitiveDrawable(cursorColor)
+			{
+				MinWidth = 1,
+				LeftWidth = 4
+			};
 
 			var background = new PrimitiveDrawable(backgroundColor);
 			background.LeftWidth = background.RightWidth = 10f;

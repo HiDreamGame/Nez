@@ -13,9 +13,11 @@ namespace Nez
 		{
 			var label = CreateNameLabel(table, skin, leftCellWidth);
 
-			_checkbox = new CheckBox(string.Empty, skin);
-			_checkbox.ProgrammaticChangeEvents = false;
-			_checkbox.IsChecked = GetValue<bool>();
+			_checkbox = new CheckBox(string.Empty, skin)
+			{
+				ProgrammaticChangeEvents = false,
+				IsChecked = GetValue<bool>()
+			};
 			_checkbox.OnChanged += newValue => { SetValue(newValue); };
 
 			table.Add(label).Width(135);

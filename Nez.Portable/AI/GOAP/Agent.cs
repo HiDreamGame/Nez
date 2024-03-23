@@ -23,7 +23,7 @@ namespace Nez.AI.GOAP
 		{
 			List<AStarNode> nodes = null;
 			if (debugPlan)
-				nodes = new List<AStarNode>();
+				nodes = [];
 
 			Actions = _planner.Plan(GetWorldState(), GetGoalState(), nodes);
 

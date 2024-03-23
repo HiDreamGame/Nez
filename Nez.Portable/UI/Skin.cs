@@ -12,7 +12,7 @@ namespace Nez.UI
 {
 	public class Skin
 	{
-		Dictionary<Type, Dictionary<string, object>> _resources = new Dictionary<Type, Dictionary<string, object>>();
+		Dictionary<Type, Dictionary<string, object>> _resources = [];
 
 
 		/// <summary>
@@ -192,11 +192,11 @@ namespace Nez.UI
 
 				// if name has 'color' in it, we are looking for a color. we check color first because some styles have things like
 				// fontColor so we'll check for font after color. We assume these are strings and do no error checking on 'identifier'
-				if (name.ToLower().Contains("color"))
+				if (name.Contains("color", StringComparison.OrdinalIgnoreCase))
 				{
 					ReflectionUtils.GetFieldInfo(styleClass, name).SetValue(styleClass, GetColor(identifier));
 				}
-				else if (name.ToLower().Contains("font"))
+				else if (name.Contains("font", StringComparison.OrdinalIgnoreCase))
 				{
 					ReflectionUtils.GetFieldInfo(styleClass, name)
 						.SetValue(styleClass, contentManager.Load<BitmapFont>(identifier));
@@ -227,7 +227,7 @@ namespace Nez.UI
 					{
 						// We have a style reference. First we need to find out what type of style name refers to from the field.
 						// Then we need to fetch the "get" method and properly type it.
-						var getStyleMethod = ReflectionUtils.GetMethodInfo(this, "Get", new Type[] { typeof(string) });
+						var getStyleMethod = ReflectionUtils.GetMethodInfo(this, "Get", [typeof(string)]);
 						getStyleMethod = getStyleMethod.MakeGenericMethod(styleField.FieldType);
 
 						// now we look up the style and finally set it
@@ -276,10 +276,9 @@ namespace Nez.UI
 		/// </summary>
 		public T Add<T>(string name, T resource)
 		{
-			Dictionary<string, object> typedResources;
-			if (!_resources.TryGetValue(typeof(T), out typedResources))
+			if (!_resources.TryGetValue(typeof(T), out Dictionary<string, object> typedResources))
 			{
-				typedResources = new Dictionary<string, object>();
+				typedResources = [];
 				_resources.Add(typeof(T), typedResources);
 			}
 
@@ -296,7 +295,7 @@ namespace Nez.UI
 		{
 			if (!_resources.TryGetValue(type, out Dictionary<string, object> typedResources))
 			{
-				typedResources = new Dictionary<string, object>();
+				typedResources = [];
 				_resources.Add(type, typedResources);
 			}
 
@@ -340,7 +339,7 @@ namespace Nez.UI
 			if (_resources.TryGetValue(typeof(T), out Dictionary<string, object> typedResources))
 				return (T)typedResources[typedResources.First().Key];
 
-			return default(T);
+			return default;
 		}
 
 		/// <summary>
@@ -354,12 +353,12 @@ namespace Nez.UI
 				return Get<T>();
 
 			if (!_resources.TryGetValue(typeof(T), out Dictionary<string, object> typedResources))
-				return default(T);
+				return default;
 
-			if (!typedResources.ContainsKey(name))
-				return default(T);
+			if (!typedResources.TryGetValue(name, out object value))
+				return default;
 
-			return (T)typedResources[name];
+			return (T)value;
 		}
 
 		public Color GetColor(string name) => Get<Color>(name);

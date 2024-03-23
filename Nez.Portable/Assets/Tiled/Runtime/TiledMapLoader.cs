@@ -52,7 +52,7 @@ namespace Nez.Tiled
 			map.MaxTileWidth = map.TileWidth;
 			map.MaxTileHeight = map.TileHeight;
 
-			map.Tilesets = new TmxList<TmxTileset>();
+			map.Tilesets = [];
 			foreach (var e in xMap.Elements("tileset"))
 			{
 				var tileset = ParseTmxTileset(map, e, map.TmxDirectory);
@@ -61,11 +61,11 @@ namespace Nez.Tiled
 				UpdateMaxTileSizes(tileset);
 			}
 
-			map.Layers = new TmxList<ITmxLayer>();
-			map.TileLayers = new TmxList<TmxLayer>();
-			map.ObjectGroups = new TmxList<TmxObjectGroup>();
-			map.ImageLayers = new TmxList<TmxImageLayer>();
-			map.Groups = new TmxList<TmxGroup>();
+			map.Layers = [];
+			map.TileLayers = [];
+			map.ObjectGroups = [];
+			map.ImageLayers = [];
+			map.Groups = [];
 
 			ParseLayers(map, xMap, map, map.Width, map.Height, map.TmxDirectory);
 
@@ -237,11 +237,12 @@ namespace Nez.Tiled
 
 		public static TmxTerrain ParseTmxTerrain(XElement xTerrain)
 		{
-			var terrain = new TmxTerrain();
-
-			terrain.Name = (string)xTerrain.Attribute("name");
-			terrain.Tile = (int)xTerrain.Attribute("tile");
-			terrain.Properties = ParsePropertyDict(xTerrain.Element("properties"));
+			var terrain = new TmxTerrain
+			{
+				Name = (string)xTerrain.Attribute("name"),
+				Tile = (int)xTerrain.Attribute("tile"),
+				Properties = ParsePropertyDict(xTerrain.Element("properties"))
+			};
 
 			return terrain;
 		}
@@ -397,7 +398,7 @@ namespace Nez.Tiled
 			if (drawOrderValue != null)
 				group.DrawOrder = drawOrderDict[drawOrderValue];
 
-			group.Objects = new TmxList<TmxObject>();
+			group.Objects = [];
 			foreach (var e in xObjectGroup.Elements("object"))
 				group.Objects.Add(new TmxObject().LoadTmxObject(map, e));
 
@@ -558,7 +559,7 @@ namespace Nez.Tiled
 			{
 				if (string.IsNullOrEmpty(str))
 					return str;
-				return str[0].ToString().ToUpper() + str.Substring(1);
+				return str[0].ToString().ToUpper() + str[1..];
 			}
 
 			var xHorizontal = (string)xText.Attribute("halign") ?? "Left";
@@ -606,11 +607,11 @@ namespace Nez.Tiled
 
 			group.Properties = ParsePropertyDict(xGroup.Element("properties"));
 
-			group.Layers = new TmxList<ITmxLayer>();
-			group.TileLayers = new TmxList<TmxLayer>();
-			group.ObjectGroups = new TmxList<TmxObjectGroup>();
-			group.ImageLayers = new TmxList<TmxImageLayer>();
-			group.Groups = new TmxList<TmxGroup>();
+			group.Layers = [];
+			group.TileLayers = [];
+			group.ObjectGroups = [];
+			group.ImageLayers = [];
+			group.Groups = [];
 
 			ParseLayers(group, xGroup, map, width, height, tmxDirectory);
 
@@ -638,12 +639,12 @@ namespace Nez.Tiled
 			var xTerrainType = xTileset.Element("terraintypes");
 			if (xTerrainType != null)
 			{
-				tileset.Terrains = new TmxList<TmxTerrain>();
+				tileset.Terrains = [];
 				foreach (var e in xTerrainType.Elements("terrain"))
 					tileset.Terrains.Add(ParseTmxTerrain(e));
 			}
 
-			tileset.Tiles = new Dictionary<int, TmxTilesetTile>();
+			tileset.Tiles = [];
 			foreach (var xTile in xTileset.Elements("tile"))
 			{
 				var tile = new TmxTilesetTile().LoadTmxTilesetTile(tileset, xTile, tileset.Terrains, tsxDir);
@@ -654,7 +655,7 @@ namespace Nez.Tiled
 
 			// cache our source rects for each tile so we dont have to calculate them every time we render. If we have
 			// an image this is a normal tileset, else its an image tileset
-			tileset.TileRegions = new Dictionary<int, RectangleF>();
+			tileset.TileRegions = [];
 			if (tileset.Image != null)
 			{
 				var id = firstGid;
@@ -708,11 +709,11 @@ namespace Nez.Tiled
 			if (xImage != null)
 				tile.Image = new TmxImage().LoadTmxImage(xImage, tmxDir);
 
-			tile.ObjectGroups = new TmxList<TmxObjectGroup>();
+			tile.ObjectGroups = [];
 			foreach (var e in xTile.Elements("objectgroup"))
 				tile.ObjectGroups.Add(new TmxObjectGroup().LoadTmxObjectGroup(tileset.Map, e));
 
-			tile.AnimationFrames = new List<TmxAnimationFrame>();
+			tile.AnimationFrames = [];
 			if (xTile.Element("animation") != null)
 			{
 				foreach (var e in xTile.Element("animation").Elements("frame"))

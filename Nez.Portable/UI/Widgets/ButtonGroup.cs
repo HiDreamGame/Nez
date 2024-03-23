@@ -11,8 +11,8 @@ namespace Nez.UI
 	/// </summary>
 	public class ButtonGroup
 	{
-		private List<Button> buttons = new List<Button>();
-		private List<Button> checkedButtons = new List<Button>(1);
+		private List<Button> buttons = [];
+		private List<Button> checkedButtons = new(1);
 		private int minCheckCount, maxCheckCount = 1;
 		private bool uncheckLast = true;
 		private Button lastChecked;

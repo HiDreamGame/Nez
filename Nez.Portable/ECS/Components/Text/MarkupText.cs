@@ -39,9 +39,9 @@ namespace Nez
 		float _textWidth, _textHeight;
 
 		List<ICompiledElement> _compiledMarkup;
-		Dictionary<string, IFont> _fontDict = new Dictionary<string, IFont>();
-		Dictionary<string, Texture2D> _textureDict = new Dictionary<string, Texture2D>();
-		Dictionary<string, bool> _conditionalDict = new Dictionary<string, bool>();
+		Dictionary<string, IFont> _fontDict = [];
+		Dictionary<string, Texture2D> _textureDict = [];
+		Dictionary<string, bool> _conditionalDict = [];
 
 
 		public MarkupText()
@@ -141,7 +141,7 @@ namespace Nez
 		public void Compile()
 		{
 			if (_compiledMarkup == null)
-				_compiledMarkup = new List<ICompiledElement>();
+				_compiledMarkup = [];
 			else
 				_compiledMarkup.Clear();
 
@@ -202,7 +202,7 @@ namespace Nez
 							var condition = reader.GetAttribute("condition");
 							var negateCondition = condition[0] == '!';
 							if (negateCondition)
-								condition = condition.Substring(1);
+								condition = condition[1..];
 
 							var value = _conditionalDict[condition];
 							conditionalsStack.Push(negateCondition ? !value : value);
@@ -238,7 +238,7 @@ namespace Nez
 								var value = reader.GetAttribute("align");
 								if (string.IsNullOrEmpty(value))
 									value = "Left";
-								value = char.ToUpper(value[0]) + value.Substring(1);
+								value = char.ToUpper(value[0]) + value[1..];
 
 								HorizontalAlign align;
 								if (Enum.TryParse(value, out align))
@@ -450,7 +450,7 @@ namespace Nez
 		static Color ParseColor(string hexString)
 		{
 			if (hexString.StartsWith("#"))
-				hexString = hexString.Substring(1);
+				hexString = hexString[1..];
 
 			var hex = uint.Parse(hexString, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
 			var color = Color.White;

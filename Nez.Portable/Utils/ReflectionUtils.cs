@@ -51,7 +51,7 @@ namespace Nez
 		{
 			var propInfo = GetPropertyInfo(targetObject, propertyName);
 			var methodInfo = GetPropertyGetter(propInfo);
-			return methodInfo.Invoke(targetObject, new object[] { });
+			return methodInfo.Invoke(targetObject, []);
 		}
 
 		/// <summary>
@@ -63,7 +63,7 @@ namespace Nez
 			// first get the property
 			var propInfo = GetPropertyInfo(targetObject, propertyName);
 			if (propInfo == null)
-				return default(T);
+				return default;
 
 			return CreateDelegate<T>(targetObject, propInfo.SetMethod);
 		}
@@ -77,7 +77,7 @@ namespace Nez
 			// first get the property
 			var propInfo = GetPropertyInfo(targetObject, propertyName);
 			if (propInfo == null)
-				return default(T);
+				return default;
 
 			return CreateDelegate<T>(targetObject, propInfo.GetMethod);
 		}

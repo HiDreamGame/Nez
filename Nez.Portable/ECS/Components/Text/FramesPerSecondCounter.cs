@@ -56,7 +56,7 @@ namespace Nez
 
 		FPSDockPosition _dockPosition;
 		Vector2 _dockOffset;
-		readonly Queue<float> _sampleBuffer = new Queue<float>();
+		readonly Queue<float> _sampleBuffer = new();
 
 
 		public FramesPerSecondCounter() : this(Graphics.Instance.BitmapFont, Color.White)

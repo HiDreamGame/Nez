@@ -86,8 +86,7 @@ namespace Nez
 		public PolyLightPostProcessor SetMultiplicativeFactor(float multiplicativeFactor)
 		{
 			_multiplicativeFactor = multiplicativeFactor;
-			if (Effect != null)
-				Effect.Parameters["_multiplicativeFactor"].SetValue(multiplicativeFactor);
+			Effect?.Parameters["_multiplicativeFactor"].SetValue(multiplicativeFactor);
 
 			return this;
 		}
@@ -146,8 +145,7 @@ namespace Nez
 
 		public override void Unload()
 		{
-			if (_lightsRenderTexture != null)
-				_lightsRenderTexture.Dispose();
+			_lightsRenderTexture?.Dispose();
 
 			if (_blurEffect != null)
 				_scene.Content.UnloadEffect(_blurEffect);

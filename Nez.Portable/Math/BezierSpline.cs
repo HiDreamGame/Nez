@@ -8,7 +8,7 @@ namespace Nez.Splines
 	/// </summary>
 	public class BezierSpline
 	{
-		FastList<Vector2> _points = new FastList<Vector2>();
+		FastList<Vector2> _points = new();
 		int _curveCount;
 
 

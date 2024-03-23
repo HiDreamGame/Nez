@@ -31,8 +31,7 @@ namespace Nez.UI
 			ListBox.OnChanged += item =>
 			{
 				selectBox.GetSelection().Choose(item);
-				if (selectBox.OnChanged != null)
-					selectBox.OnChanged(item);
+				selectBox.OnChanged?.Invoke(item);
 				Hide();
 			};
 		}

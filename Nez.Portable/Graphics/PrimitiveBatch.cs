@@ -30,9 +30,11 @@ namespace Nez
 			_rectangleVerts = new Vector2[4];
 
 			// set up a new basic effect, and enable vertex colors.
-			_basicEffect = new BasicEffect(Core.GraphicsDevice);
-			_basicEffect.World = Matrix.Identity;
-			_basicEffect.VertexColorEnabled = true;
+			_basicEffect = new BasicEffect(Core.GraphicsDevice)
+			{
+				World = Matrix.Identity,
+				VertexColorEnabled = true
+			};
 		}
 
 		public void Dispose() => Dispose(true);
@@ -41,8 +43,7 @@ namespace Nez
 		{
 			if (disposing && !_isDisposed)
 			{
-				if (_basicEffect != null)
-					_basicEffect.Dispose();
+				_basicEffect?.Dispose();
 
 				_isDisposed = true;
 			}
@@ -259,10 +260,7 @@ namespace Nez
 			Matrix2D endMatrix = Matrix2D.CreateTranslation(end.X, end.Y);
 
 			// Setup arrow end shape
-			Vector2[] verts = new Vector2[3];
-			verts[0] = new Vector2(0, 0);
-			verts[1] = new Vector2(-halfWidth, -length);
-			verts[2] = new Vector2(halfWidth, -length);
+			Vector2[] verts = [new Vector2(0, 0), new Vector2(-halfWidth, -length), new Vector2(halfWidth, -length)];
 
 			// Rotate end shape
 			Vector2Ext.Transform(verts, ref rotMatrix, verts);
@@ -279,11 +277,13 @@ namespace Nez
 				Matrix2D startMatrix = Matrix2D.CreateTranslation(start.X, start.Y);
 
 				// Setup arrow start shape
-				Vector2[] baseVerts = new Vector2[4];
-				baseVerts[0] = new Vector2(-halfWidth, length / 4);
-				baseVerts[1] = new Vector2(halfWidth, length / 4);
-				baseVerts[2] = new Vector2(halfWidth, 0);
-				baseVerts[3] = new Vector2(-halfWidth, 0);
+				Vector2[] baseVerts =
+				[
+					new Vector2(-halfWidth, length / 4),
+					new Vector2(halfWidth, length / 4),
+					new Vector2(halfWidth, 0),
+					new Vector2(-halfWidth, 0),
+				];
 
 				// Rotate start shape
 				Vector2Ext.Transform(baseVerts, ref rotMatrix, baseVerts);

@@ -14,13 +14,13 @@ namespace Nez.Svg
 		}
 
 		public Vector2[] Points;
-
+		private static readonly char[] separator = [' '];
 
 		void ParsePoints(string str)
 		{
 			// normalize commas and spaces since some programs use comma separate points and others use spaces
 			str = str.Replace(',', ' ');
-			var pairs = str.Split(new char[] {' '}, System.StringSplitOptions.RemoveEmptyEntries);
+			var pairs = str.Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
 			Points = new Vector2[pairs.Length / 2];
 
 			var pointIndex = 0;

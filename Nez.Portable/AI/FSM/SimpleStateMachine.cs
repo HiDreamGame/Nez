@@ -13,7 +13,7 @@ namespace Nez.AI.FSM
 	/// Emitter does for its enum: pass in a IEqualityComparer to the constructor.
 	/// </summary>
 	public abstract class SimpleStateMachine<TEnum> : Component, IUpdatable
-		where TEnum : struct, IComparable, IFormattable
+		where TEnum : struct, Enum, IComparable, IFormattable
 	{
 		class StateMethodCache
 		{
@@ -43,14 +43,12 @@ namespace Nez.AI.FSM
 				_currentState = value;
 
 				// exit the state, fetch the next cached state methods then enter that state
-				if (_stateMethods.ExitState != null)
-					_stateMethods.ExitState();
+				_stateMethods.ExitState?.Invoke();
 
 				elapsedTimeInState = 0f;
 				_stateMethods = _stateCache[_currentState];
 
-				if (_stateMethods.EnterState != null)
-					_stateMethods.EnterState();
+				_stateMethods.EnterState?.Invoke();
 			}
 		}
 
@@ -61,8 +59,7 @@ namespace Nez.AI.FSM
 				_currentState = value;
 				_stateMethods = _stateCache[_currentState];
 
-				if (_stateMethods.EnterState != null)
-					_stateMethods.EnterState();
+				_stateMethods.EnterState?.Invoke();
 			}
 		}
 
@@ -72,7 +69,7 @@ namespace Nez.AI.FSM
 			_stateCache = new Dictionary<TEnum, StateMethodCache>(customComparer);
 
 			// cache all of our state methods
-			var enumValues = (TEnum[]) Enum.GetValues(typeof(TEnum));
+			var enumValues = Enum.GetValues<TEnum>();
 			foreach (var e in enumValues)
 				ConfigureAndCacheState(e);
 		}
@@ -81,18 +78,19 @@ namespace Nez.AI.FSM
 		{
 			elapsedTimeInState += Time.DeltaTime;
 
-			if (_stateMethods.Tick != null)
-				_stateMethods.Tick();
+			_stateMethods.Tick?.Invoke();
 		}
 
 		void ConfigureAndCacheState(TEnum stateEnum)
 		{
 			var stateName = stateEnum.ToString();
 
-			var state = new StateMethodCache();
-			state.EnterState = GetDelegateForMethod(stateName + "_Enter");
-			state.Tick = GetDelegateForMethod(stateName + "_Tick");
-			state.ExitState = GetDelegateForMethod(stateName + "_Exit");
+			var state = new StateMethodCache
+			{
+				EnterState = GetDelegateForMethod(stateName + "_Enter"),
+				Tick = GetDelegateForMethod(stateName + "_Tick"),
+				ExitState = GetDelegateForMethod(stateName + "_Exit")
+			};
 
 			_stateCache[stateEnum] = state;
 		}

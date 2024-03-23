@@ -339,8 +339,7 @@ namespace Nez.DeferredLighting
 			NormalRT.Dispose();
 			LightRT.Dispose();
 
-			if (_nullNormalMapTexture != null)
-				_nullNormalMapTexture.Dispose();
+			_nullNormalMapTexture?.Dispose();
 
 			base.Unload();
 		}

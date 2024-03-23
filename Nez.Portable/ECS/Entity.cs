@@ -219,11 +219,9 @@ namespace Nez
 			{
 				// we only call through to the entityTagList if we already have a scene. if we dont have a scene yet we will be
 				// added to the entityTagList when we do
-				if (Scene != null)
-					Scene.Entities.RemoveFromTagList(this);
+				Scene?.Entities.RemoveFromTagList(this);
 				_tag = tag;
-				if (Scene != null)
-					Scene.Entities.AddToTagList(this);
+				Scene?.Entities.AddToTagList(this);
 			}
 
 			return this;
@@ -325,7 +323,7 @@ namespace Nez
 		/// the CopyFrom method should be called which will clone all Components, Colliders and Transform children for you. Note
 		/// that the cloned Entity will not be added to any Scene! You must add them yourself!
 		/// </summary>
-		public virtual Entity Clone(Vector2 position = default(Vector2))
+		public virtual Entity Clone(Vector2 position = default)
 		{
 			var entity = Activator.CreateInstance(GetType()) as Entity;
 			entity.Name = Name + "(clone)";
@@ -423,8 +421,10 @@ namespace Nez
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
 		public T AddComponent<T>() where T : Component, new()
 		{
-			var component = new T();
-			component.Entity = this;
+			var component = new T
+			{
+				Entity = this
+			};
 			Components.Add(component);
 			component.Initialize();
 			return component;

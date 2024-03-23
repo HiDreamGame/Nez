@@ -15,7 +15,7 @@ namespace Nez.AI.FSM
 
 		protected State<T> _currentState;
 		protected T _context;
-		Dictionary<Type, State<T>> _states = new Dictionary<Type, State<T>>();
+		Dictionary<Type, State<T>> _states = [];
 
 
 		public StateMachine(T context, State<T> initialState)
@@ -74,8 +74,7 @@ namespace Nez.AI.FSM
 				return _currentState as R;
 
 			// only call end if we have a currentState
-			if (_currentState != null)
-				_currentState.End();
+			_currentState?.End();
 
 			Insist.IsTrue(_states.ContainsKey(newType),
 				"{0}: state {1} does not exist. Did you forget to add it by calling addState?", GetType(), newType);
@@ -87,8 +86,7 @@ namespace Nez.AI.FSM
 			_currentState.Begin();
 
 			// fire the changed event if we have a listener
-			if (OnStateChanged != null)
-				OnStateChanged();
+			OnStateChanged?.Invoke();
 
 			return _currentState as R;
 		}

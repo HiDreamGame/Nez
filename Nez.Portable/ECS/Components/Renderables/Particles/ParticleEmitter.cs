@@ -144,8 +144,7 @@ namespace Nez.Particles
 						// when we hit our duration we dont emit any more particles
 						_emitting = false;
 
-						if (OnEmissionDurationReached != null)
-							OnEmissionDurationReached(this);
+						OnEmissionDurationReached?.Invoke(this);
 					}
 				}
 
@@ -154,8 +153,7 @@ namespace Nez.Particles
 				{
 					Stop();
 
-					if (OnAllParticlesExpired != null)
-						OnAllParticlesExpired(this);
+					OnAllParticlesExpired?.Invoke(this);
 				}
 			}
 

@@ -127,7 +127,7 @@ namespace Nez
 		/// </summary>
 		/// <value>The size of the scene render texture.</value>
 		public Point SceneRenderTargetSize =>
-			new Point(_sceneRenderTarget.Bounds.Width, _sceneRenderTarget.Bounds.Height);
+			new(_sceneRenderTarget.Bounds.Width, _sceneRenderTarget.Bounds.Height);
 
 		/// <summary>
 		/// accesses the main scene RenderTarget. Some Renderers that use multiple RenderTargets may need to render into them first and then
@@ -204,10 +204,10 @@ namespace Nez
 		RenderTarget2D _destinationRenderTarget;
 		Action<Texture2D> _screenshotRequestCallback;
 
-		internal readonly FastList<SceneComponent> _sceneComponents = new FastList<SceneComponent>();
-		internal readonly FastList<Renderer> _renderers = new FastList<Renderer>();
-		internal readonly FastList<Renderer> _afterPostProcessorRenderers = new FastList<Renderer>();
-		internal readonly FastList<PostProcessor> _postProcessors = new FastList<PostProcessor>();
+		internal readonly FastList<SceneComponent> _sceneComponents = new();
+		internal readonly FastList<Renderer> _renderers = new();
+		internal readonly FastList<Renderer> _afterPostProcessorRenderers = new();
+		internal readonly FastList<PostProcessor> _postProcessors = new();
 		bool _didSceneBegin;
 
 
@@ -377,8 +377,7 @@ namespace Nez
 			_sceneRenderTarget.Dispose();
 			Physics.Clear();
 
-			if (_destinationRenderTarget != null)
-				_destinationRenderTarget.Dispose();
+			_destinationRenderTarget?.Dispose();
 
 			Unload();
 		}
@@ -433,8 +432,7 @@ namespace Nez
 					Core.GraphicsDevice.Clear(ClearColor);
 
 					// force a Camera matrix update to account for the new Viewport size
-					if (_renderers.Buffer[i].Camera != null)
-						_renderers.Buffer[i].Camera.ForceMatrixUpdate();
+					_renderers.Buffer[i].Camera?.ForceMatrixUpdate();
 					Camera.ForceMatrixUpdate();
 				}
 
@@ -479,8 +477,7 @@ namespace Nez
 				}
 
 				// force a Camera matrix update to account for the new Viewport size
-				if (_afterPostProcessorRenderers.Buffer[i].Camera != null)
-					_afterPostProcessorRenderers.Buffer[i].Camera.ForceMatrixUpdate();
+				_afterPostProcessorRenderers.Buffer[i].Camera?.ForceMatrixUpdate();
 				_afterPostProcessorRenderers.Buffer[i].Render(this);
 			}
 
@@ -711,8 +708,7 @@ namespace Nez
 			Input._resolutionOffset = _finalRenderDestinationRect.Location;
 
 			// resize our RenderTargets
-			if (_sceneRenderTarget != null)
-				_sceneRenderTarget.Dispose();
+			_sceneRenderTarget?.Dispose();
 			_sceneRenderTarget = RenderTarget.Create(renderTargetWidth, renderTargetHeight);
 
 			// only create the destinationRenderTarget if it already exists, which would indicate we have PostProcessors
@@ -733,8 +729,7 @@ namespace Nez
 			for (var i = 0; i < _postProcessors.Length; i++)
 				_postProcessors.Buffer[i].OnSceneBackBufferSizeChanged(renderTargetWidth, renderTargetHeight);
 
-			if (_finalRenderDelegate != null)
-				_finalRenderDelegate.OnSceneBackBufferSizeChanged(renderTargetWidth, renderTargetHeight);
+			_finalRenderDelegate?.OnSceneBackBufferSizeChanged(renderTargetWidth, renderTargetHeight);
 
 			Camera.OnSceneRenderTargetSizeChanged(renderTargetWidth, renderTargetHeight);
 		}

@@ -78,8 +78,8 @@ namespace Nez
 		const int MAX_INDICES = MAX_SPRITES * 6;
 
 		// Used to calculate texture coordinates
-		static readonly float[] _cornerOffsetX = new float[] {0.0f, 1.0f, 0.0f, 1.0f};
-		static readonly float[] _cornerOffsetY = new float[] {0.0f, 0.0f, 1.0f, 1.0f};
+		static readonly float[] _cornerOffsetX = [0.0f, 1.0f, 0.0f, 1.0f];
+		static readonly float[] _cornerOffsetY = [0.0f, 0.0f, 1.0f, 1.0f];
 		static readonly short[] _indexData = GenerateIndexArray();
 
 		#endregion

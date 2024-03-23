@@ -14,7 +14,7 @@ namespace Nez.Svg
 
 		[XmlAttribute("height")] public float Height;
 
-		public Vector2 Center => new Vector2(X + Width / 2, Y + Height / 2);
+		public Vector2 Center => new(X + Width / 2, Y + Height / 2);
 
 
 		/// <summary>
@@ -25,8 +25,8 @@ namespace Nez.Svg
 		{
 			var pts = new Vector2[]
 			{
-				new Vector2(X, Y), new Vector2(X + Width, Y), new Vector2(X + Width, Y + Height),
-				new Vector2(X, Y + Height)
+				new(X, Y), new(X + Width, Y), new(X + Width, Y + Height),
+				new(X, Y + Height)
 			};
 			var mat = GetCombinedMatrix();
 			Vector2Ext.Transform(pts, ref mat, pts);

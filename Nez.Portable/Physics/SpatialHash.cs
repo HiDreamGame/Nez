@@ -9,7 +9,7 @@ namespace Nez.Spatial
 {
 	public class SpatialHash
 	{
-		public Rectangle GridBounds = new Rectangle();
+		public Rectangle GridBounds = new();
 
 
 		RaycastResultParser _raycastParser;
@@ -27,22 +27,22 @@ namespace Nez.Spatial
 		/// <summary>
 		/// cached box used for overlap checks
 		/// </summary>
-		Box _overlapTestBox = new Box(0f, 0f);
+		Box _overlapTestBox = new(0f, 0f);
 
 		/// <summary>
 		/// cached circle used for overlap checks
 		/// </summary>
-		Circle _overlapTestCirce = new Circle(0f);
+		Circle _overlapTestCirce = new(0f);
 
 		/// <summary>
 		/// the Dictionary that holds all of the data
 		/// </summary>
-		IntIntDictionary _cellDict = new IntIntDictionary();
+		IntIntDictionary _cellDict = new();
 
 		/// <summary>
 		/// shared HashSet used to return collision info
 		/// </summary>
-		HashSet<Collider> _tempHashset = new HashSet<Collider>();
+		HashSet<Collider> _tempHashset = [];
 
 
 		public SpatialHash(int cellSize = 100)
@@ -94,7 +94,7 @@ namespace Nez.Spatial
 			{
 				if (createCellIfEmpty)
 				{
-					cell = new List<Collider>();
+					cell = [];
 					_cellDict.Add(x, y, cell);
 				}
 			}
@@ -150,8 +150,7 @@ namespace Nez.Spatial
 					// the cell should always exist since this collider should be in all queryed cells
 					var cell = CellAtPosition(x, y);
 					Insist.IsNotNull(cell, "removing Collider [{0}] from a cell that it is not present in", collider);
-					if (cell != null)
-						cell.Remove(collider);
+					cell?.Remove(collider);
 				}
 			}
 		}
@@ -465,7 +464,7 @@ namespace Nez.Spatial
 	/// </summary>
 	class IntIntDictionary
 	{
-		Dictionary<long, List<Collider>> _store = new Dictionary<long, List<Collider>>();
+		Dictionary<long, List<Collider>> _store = [];
 
 
 		/// <summary>
@@ -546,8 +545,8 @@ namespace Nez.Spatial
 		//Rectangle _hitTesterRect; see note in checkRayIntersection
 		RaycastHit[] _hits;
 		RaycastHit _tempHit;
-		List<Collider> _checkedColliders = new List<Collider>();
-		List<RaycastHit> _cellHits = new List<RaycastHit>();
+		List<Collider> _checkedColliders = [];
+		List<RaycastHit> _cellHits = [];
 		Ray2D _ray;
 		int _layerMask;
 

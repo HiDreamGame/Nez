@@ -30,20 +30,20 @@ namespace Nez
 		static Vector2 FONT_SCALE;
 
 		// colors
-		static Color FONT_COLOR = new Color(255, 255, 255);
-		static Color WINDOW_COLOR = new Color(17, 17, 17);
-		static Color BUTTON_COLOR = new Color(78, 91, 98);
-		static Color BUTTON_COLOR_ACTIVE = new Color(168, 207, 115);
-		static Color BUTTON_COLOR_DOWN = new Color(244, 23, 135);
-		static Color TOGGLE_BG = new Color(63, 63, 63);
-		static Color TOGGLE_BG_ACTIVE = new Color(130, 130, 130);
-		static Color TOGGLE_ON = new Color(168, 207, 115);
-		static Color TOGGLE_ON_ACTIVE = new Color(244, 23, 135);
-		static Color SLIDER_BG = new Color(78, 91, 98);
-		static Color SLIDER_THUMB_BG = new Color(25, 144, 188);
-		static Color SLIDER_THUMB_BG_ACTIVE = new Color(168, 207, 115);
-		static Color SLIDER_THUMB_BG_DOWN = new Color(244, 23, 135);
-		static Color HEADER_BG = new Color(40, 46, 50);
+		static Color FONT_COLOR = new(255, 255, 255);
+		static Color WINDOW_COLOR = new(17, 17, 17);
+		static Color BUTTON_COLOR = new(78, 91, 98);
+		static Color BUTTON_COLOR_ACTIVE = new(168, 207, 115);
+		static Color BUTTON_COLOR_DOWN = new(244, 23, 135);
+		static Color TOGGLE_BG = new(63, 63, 63);
+		static Color TOGGLE_BG_ACTIVE = new(130, 130, 130);
+		static Color TOGGLE_ON = new(168, 207, 115);
+		static Color TOGGLE_ON_ACTIVE = new(244, 23, 135);
+		static Color SLIDER_BG = new(78, 91, 98);
+		static Color SLIDER_THUMB_BG = new(25, 144, 188);
+		static Color SLIDER_THUMB_BG_ACTIVE = new(168, 207, 115);
+		static Color SLIDER_THUMB_BG_DOWN = new(244, 23, 135);
+		static Color HEADER_BG = new(40, 46, 50);
 
 		// state
 		static float _lastY;

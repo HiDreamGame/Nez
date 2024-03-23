@@ -11,7 +11,7 @@ namespace Nez
 {
 	public class EffectInspector : Inspector
 	{
-		List<Inspector> _inspectors = new List<Inspector>();
+		List<Inspector> _inspectors = [];
 
 
 		public override void Initialize(Table table, Skin skin, float leftCellWidth)

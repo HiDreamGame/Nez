@@ -1277,8 +1277,7 @@ namespace Nez.UI
 			// draw the background
 			var color = GetColor();
 			color = ColorExt.Create(color, (int)(color.A * parentAlpha));
-			if (_style.Background != null)
-				_style.Background.Draw(batcher, 0, 0, GetWidth(), GetHeight(), color);
+			_style.Background?.Draw(batcher, 0, 0, GetWidth(), GetHeight(), color);
 
 			// caculate the scissor bounds based on the batch transform, the available widget area and the camera transform. We need to
 			// project those to screen coordinates for OpenGL to consume.
@@ -1297,28 +1296,23 @@ namespace Nez.UI
 			color.A = (byte)(alpha * (_fadeAlpha / _fadeAlphaSeconds));
 			if (_scrollX && _scrollY)
 			{
-				if (_style.Corner != null)
-					_style.Corner.Draw(batcher, _hScrollBounds.X + _hScrollBounds.Width, _hScrollBounds.Y,
+				_style.Corner?.Draw(batcher, _hScrollBounds.X + _hScrollBounds.Width, _hScrollBounds.Y,
 						_vScrollBounds.Width, _vScrollBounds.Y, color);
 			}
 
 			if (_scrollX)
 			{
-				if (_style.HScroll != null)
-					_style.HScroll.Draw(batcher, _hScrollBounds.X, _hScrollBounds.Y, _hScrollBounds.Width,
+				_style.HScroll?.Draw(batcher, _hScrollBounds.X, _hScrollBounds.Y, _hScrollBounds.Width,
 						_hScrollBounds.Height, color);
-				if (_style.HScrollKnob != null)
-					_style.HScrollKnob.Draw(batcher, _hKnobBounds.X, _hKnobBounds.Y, _hKnobBounds.Width,
+				_style.HScrollKnob?.Draw(batcher, _hKnobBounds.X, _hKnobBounds.Y, _hKnobBounds.Width,
 						_hKnobBounds.Height, color);
 			}
 
 			if (_scrollY)
 			{
-				if (_style.VScroll != null)
-					_style.VScroll.Draw(batcher, _vScrollBounds.X, _vScrollBounds.Y, _vScrollBounds.Width,
+				_style.VScroll?.Draw(batcher, _vScrollBounds.X, _vScrollBounds.Y, _vScrollBounds.Width,
 						_vScrollBounds.Height, color);
-				if (_style.VScrollKnob != null)
-					_style.VScrollKnob.Draw(batcher, _vKnobBounds.X, _vKnobBounds.Y, _vKnobBounds.Width,
+				_style.VScrollKnob?.Draw(batcher, _vKnobBounds.X, _vKnobBounds.Y, _vKnobBounds.Width,
 						_vKnobBounds.Height, color);
 			}
 

@@ -76,7 +76,7 @@ namespace Nez.AI.GOAP
 
 	public class AStar
 	{
-		static AStarStorage storage = new AStarStorage();
+		static AStarStorage storage = new();
 
 		/* from: http://theory.stanford.edu/~amitp/GameProgramming/ImplementationNotes.html
 		OPEN = priority queue containing START
@@ -199,15 +199,13 @@ namespace Nez.AI.GOAP
 			for (var i = 0; i <= totalActionsInPlan - 1; i++)
 			{
 				// optionally add the node to the List if we have been passed one
-				if (selectedNodes != null)
-					selectedNodes.Add(curnode.Clone());
+				selectedNodes?.Add(curnode.Clone());
 				plan.Push(curnode.Action);
 				curnode = curnode.Parent;
 			}
 
 			// our nodes went from the goal back to the start so reverse them
-			if (selectedNodes != null)
-				selectedNodes.Reverse();
+			selectedNodes?.Reverse();
 
 			return plan;
 		}

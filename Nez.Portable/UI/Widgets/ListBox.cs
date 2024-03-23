@@ -14,7 +14,7 @@ namespace Nez.UI
 		public event Action<T> OnChanged;
 
 		ListBoxStyle _style;
-		List<T> _items = new List<T>();
+		List<T> _items = [];
 		ArraySelection<T> _selection;
 		float _prefWidth, _prefHeight;
 		float _itemHeight;

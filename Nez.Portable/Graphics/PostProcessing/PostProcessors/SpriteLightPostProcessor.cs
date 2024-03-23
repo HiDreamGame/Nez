@@ -22,8 +22,7 @@ namespace Nez
 			get => _multiplicativeFactor;
 			set
 			{
-				if (Effect != null)
-					Effect.Parameters["_multiplicativeFactor"].SetValue(value);
+				Effect?.Parameters["_multiplicativeFactor"].SetValue(value);
 				_multiplicativeFactor = value;
 			}
 		}

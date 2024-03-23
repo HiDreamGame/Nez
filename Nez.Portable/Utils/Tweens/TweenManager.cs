@@ -36,13 +36,13 @@ namespace Nez.Tweens
 		/// <summary>
 		/// internal list of all the currently active tweens
 		/// </summary>
-		FastList<ITweenable> _activeTweens = new FastList<ITweenable>();
+		FastList<ITweenable> _activeTweens = new();
 		public static IReadOnlyList<ITweenable> ActiveTweens => _instance._activeTweens.Buffer;
 
 		/// <summary>
 		/// stores tweens marked for removal
 		/// </summary>
-		FastList<ITweenable> _tempTweens = new FastList<ITweenable>();
+		FastList<ITweenable> _tempTweens = new();
 
 		/// <summary>
 		/// flag indicating the tween update loop is running

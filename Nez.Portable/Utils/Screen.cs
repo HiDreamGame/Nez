@@ -34,14 +34,14 @@ namespace Nez
 		/// gets the Screen's size as a Vector2
 		/// </summary>
 		/// <value>The screen size.</value>
-		public static Vector2 Size => new Vector2(Width, Height);
+		public static Vector2 Size => new(Width, Height);
 
 		/// <summary>
 		/// gets the Screen's center.null Note that this is the center of the backbuffer! If you are rendering to a smaller RenderTarget
 		/// you will need to scale this value appropriately.
 		/// </summary>
 		/// <value>The center.</value>
-		public static Vector2 Center => new Vector2(Width / 2, Height / 2);
+		public static Vector2 Center => new(Width / 2, Height / 2);
 
 		public static int PreferredBackBufferWidth
 		{

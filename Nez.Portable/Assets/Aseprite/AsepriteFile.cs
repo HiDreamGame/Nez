@@ -112,7 +112,7 @@ namespace Nez.Aseprite
 		/// </returns>
 		public SpriteAtlas ToSpriteAtlas(bool onlyVisibleLayers = true, int borderPadding = 0, int spacing = 0, int innerPadding = 0)
 		{
-			SpriteAtlas atlas = new SpriteAtlas
+			SpriteAtlas atlas = new()
 			{
 				Names = new string[Frames.Count],
 				Sprites = new Sprite[Frames.Count],
@@ -173,7 +173,7 @@ namespace Nez.Aseprite
 				regions[i] = new Rectangle(x, y, CanvasWidth, CanvasHeight);
 			}
 
-			Texture2D texture = new Texture2D(Core.GraphicsDevice, imageWidth, imageHeight);
+			Texture2D texture = new(Core.GraphicsDevice, imageWidth, imageHeight);
 			texture.SetData<Color>(imagePixels);
 
 			for (int i = 0; i < Frames.Count; i++)

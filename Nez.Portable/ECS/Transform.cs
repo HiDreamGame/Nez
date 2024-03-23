@@ -258,7 +258,7 @@ namespace Nez
 		Vector2 _localScale;
 		float _localRotation;
 
-		List<Transform> _children = new List<Transform>();
+		List<Transform> _children = [];
 
 		#endregion
 
@@ -293,11 +293,9 @@ namespace Nez
 			if (_parent == parent)
 				return this;
 
-			if (_parent != null)
-				_parent._children.Remove(this);
+			_parent?._children.Remove(this);
 
-			if (parent != null)
-				parent._children.Add(this);
+			parent?._children.Add(this);
 
 			_parent = parent;
 			SetDirty(DirtyType.PositionDirty);
@@ -500,8 +498,7 @@ namespace Nez
 		{
 			if (hierarchyDirty != DirtyType.Clean)
 			{
-				if (Parent != null)
-					Parent.UpdateTransform();
+				Parent?.UpdateTransform();
 
 				if (_localDirty)
 				{

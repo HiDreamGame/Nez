@@ -26,7 +26,7 @@ namespace Nez.Textures
 		/// </summary>
 		internal static RenderTarget instance;
 
-		List<TrackedRenderTarget2D> _renderTargetPool = new List<TrackedRenderTarget2D>();
+		List<TrackedRenderTarget2D> _renderTargetPool = [];
 
 
 		public RenderTarget()

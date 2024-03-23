@@ -12,7 +12,7 @@ namespace Nez.Particles
 		/// <summary>
 		/// shared Circle used for collisions checks
 		/// </summary>
-		static Circle _circleCollisionShape = new Circle(0);
+		static Circle _circleCollisionShape = new(0);
 
 		internal Vector2 position;
 		internal Vector2 spawnPosition;

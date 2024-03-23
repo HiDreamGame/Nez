@@ -54,7 +54,7 @@ namespace Nez
 		/// default SamplerState used by Materials. Note that this must be set at launch! Changing it after that time will result in only
 		/// Materials created after it was set having the new SamplerState
 		/// </summary>
-		public static SamplerState DefaultSamplerState = new SamplerState
+		public static SamplerState DefaultSamplerState = new()
 		{
 			Filter = TextureFilter.Point
 		};
@@ -101,9 +101,9 @@ namespace Nez
 		ITimer _graphicsDeviceChangeTimer;
 
 		// globally accessible systems
-		FastList<GlobalManager> _globalManagers = new FastList<GlobalManager>();
-		CoroutineManager _coroutineManager = new CoroutineManager();
-		TimerManager _timerManager = new TimerManager();
+		FastList<GlobalManager> _globalManagers = new();
+		CoroutineManager _coroutineManager = new();
+		TimerManager _timerManager = new();
 
 
 		/// <summary>
@@ -286,8 +286,7 @@ namespace Nez
 
 			StartDebugDraw(gameTime.ElapsedGameTime);
 
-			if (_sceneTransition != null)
-				_sceneTransition.PreRender(Graphics.Instance.Batcher);
+			_sceneTransition?.PreRender(Graphics.Instance.Batcher);
 
 			// special handling of SceneTransition if we have one. We either render the SceneTransition or the Scene
 			if (_sceneTransition != null)

@@ -48,10 +48,11 @@ namespace Nez.BitmapFonts
 			var characters = new Dictionary<char, Character>();
 			for (var r = 0; r < regionCount; r++)
 			{
-				var character = new Character();
-
-				character.Char = (char) reader.ReadInt32();
-				character.TexturePage = reader.ReadInt32();
+				var character = new Character
+				{
+					Char = (char)reader.ReadInt32(),
+					TexturePage = reader.ReadInt32()
+				};
 				character.Bounds.X = reader.ReadInt32();
 				character.Bounds.Y = reader.ReadInt32();
 				character.Bounds.Width = reader.ReadInt32();

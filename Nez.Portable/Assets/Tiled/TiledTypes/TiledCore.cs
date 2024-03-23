@@ -26,7 +26,7 @@ namespace Nez.Tiled
 
 	public class TmxList<T> : KeyedCollection<string, T> where T : ITmxElement
 	{
-		Dictionary<string, int> _nameCount = new Dictionary<string, int>();
+		Dictionary<string, int> _nameCount = [];
 
 		public new void Add(T t)
 		{

@@ -173,9 +173,11 @@ namespace Nez
 			for (var i = 0; i < collisionRects.Count; i++)
 			{
 				var collider = new BoxCollider(collisionRects[i].X + _localOffset.X,
-					collisionRects[i].Y + _localOffset.Y, collisionRects[i].Width, collisionRects[i].Height);
-				collider.PhysicsLayer = PhysicsLayer;
-				collider.Entity = Entity;
+					collisionRects[i].Y + _localOffset.Y, collisionRects[i].Width, collisionRects[i].Height)
+				{
+					PhysicsLayer = PhysicsLayer,
+					Entity = Entity
+				};
 				_colliders[i] = collider;
 
 				Physics.AddCollider(collider);

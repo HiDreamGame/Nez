@@ -26,7 +26,7 @@ namespace Nez.Svg
 		/// the rect encompassing this image. Note that the rect is with no transforms applied.
 		/// </summary>
 		/// <value>The rect.</value>
-		public RectangleF Rect => new RectangleF(X, Y, Width, Height);
+		public RectangleF Rect => new(X, Y, Width, Height);
 
 		[XmlAttribute("href", Namespace = "http://www.w3.org/1999/xlink")]
 		public string Href;
@@ -88,7 +88,7 @@ namespace Nez.Svg
 			else if (Href.StartsWith("data:"))
 			{
 				var startIndex = Href.IndexOf("base64,", StringComparison.OrdinalIgnoreCase) + 7;
-				var imageContents = Href.Substring(startIndex);
+				var imageContents = Href[startIndex..];
 				var bytes = Convert.FromBase64String(imageContents);
 
 				using (var m = new MemoryStream())

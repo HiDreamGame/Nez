@@ -11,17 +11,17 @@ namespace Nez
 		/// <summary>
 		/// list of entities added to the scene
 		/// </summary>
-		FastList<Entity> _entities = new FastList<Entity>();
+		FastList<Entity> _entities = new();
 
 		/// <summary>
 		/// The list of entities that were added this frame. Used to group the entities so we can process them simultaneously
 		/// </summary>
-		HashSet<Entity> _entitiesToAdd = new HashSet<Entity>();
+		HashSet<Entity> _entitiesToAdd = [];
 
 		/// <summary>
 		/// The list of entities that were marked for removal this frame. Used to group the entities so we can process them simultaneously
 		/// </summary>
-		HashSet<Entity> _entitiesToRemove = new HashSet<Entity>();
+		HashSet<Entity> _entitiesToRemove = [];
 
 		/// <summary>
 		/// flag used to determine if we need to sort our entities this frame
@@ -31,12 +31,12 @@ namespace Nez
 		/// <summary>
 		/// tracks entities by tag for easy retrieval
 		/// </summary>
-		Dictionary<int, FastList<Entity>> _entityDict = new Dictionary<int, FastList<Entity>>();
+		Dictionary<int, FastList<Entity>> _entityDict = [];
 
-		HashSet<int> _unsortedTags = new HashSet<int>();
+		HashSet<int> _unsortedTags = [];
 
 		// used in updateLists to double buffer so that the original lists can be modified elsewhere
-		HashSet<Entity> _tempEntityList = new HashSet<Entity>();
+		HashSet<Entity> _tempEntityList = [];
 
 
 		public EntityList(Scene scene)

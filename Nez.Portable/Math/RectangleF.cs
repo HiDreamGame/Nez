@@ -11,7 +11,7 @@ namespace Nez
 	[DebuggerDisplay("{DebugDisplayString,nq}")]
 	public struct RectangleF : IEquatable<RectangleF>
 	{
-		static RectangleF emptyRectangle = new RectangleF();
+		static RectangleF emptyRectangle = new();
 
 		/// <summary>
 		/// The x coordinate of the top-left corner of this <see cref="RectangleF"/>.
@@ -45,7 +45,7 @@ namespace Nez
 		/// returns a RectangleF of float.Min/Max values
 		/// </summary>
 		/// <value>The max rect.</value>
-		public static RectangleF MaxRect => new RectangleF(float.MinValue / 2, float.MinValue / 2, float.MaxValue, float.MaxValue);
+		public static RectangleF MaxRect => new(float.MinValue / 2, float.MinValue / 2, float.MaxValue, float.MaxValue);
 
 		/// <summary>
 		/// Returns the x coordinate of the left edge of this <see cref="RectangleF"/>.
@@ -71,7 +71,7 @@ namespace Nez
 		/// gets the max point of the rectangle, the bottom-right corner
 		/// </summary>
 		/// <value>The max.</value>
-		public Vector2 Max => new Vector2(Right, Bottom);
+		public Vector2 Max => new(Right, Bottom);
 
 		/// <summary>
 		/// Whether or not this <see cref="RectangleF"/> has a <see cref="Width"/> and
@@ -84,7 +84,7 @@ namespace Nez
 		/// </summary>
 		public Vector2 Location
 		{
-			get => new Vector2(X, Y);
+			get => new(X, Y);
 			set
 			{
 				X = value.X;
@@ -97,7 +97,7 @@ namespace Nez
 		/// </summary>
 		public Vector2 Size
 		{
-			get => new Vector2(Width, Height);
+			get => new(Width, Height);
 			set
 			{
 				Width = value.X;
@@ -112,7 +112,7 @@ namespace Nez
 		/// If <see cref="Width"/> or <see cref="Height"/> is an odd number,
 		/// the center point will be rounded down.
 		/// </remarks>
-		public Vector2 Center => new Vector2(X + (Width / 2), Y + (Height / 2));
+		public Vector2 Center => new(X + (Width / 2), Y + (Height / 2));
 
 		#endregion
 
@@ -557,9 +557,11 @@ namespace Nez
 		public Vector2 GetClosestPointOnRectangleFToPoint(Vector2 point)
 		{
 			// for each axis, if the point is outside the box clamp it to the box else leave it alone
-			var res = new Vector2();
-			res.X = MathHelper.Clamp(point.X, Left, Right);
-			res.Y = MathHelper.Clamp(point.Y, Top, Bottom);
+			var res = new Vector2
+			{
+				X = MathHelper.Clamp(point.X, Left, Right),
+				Y = MathHelper.Clamp(point.Y, Top, Bottom)
+			};
 
 			return res;
 		}
@@ -575,9 +577,11 @@ namespace Nez
 			edgeNormal = Vector2.Zero;
 
 			// for each axis, if the point is outside the box clamp it to the box else leave it alone
-			var res = new Vector2();
-			res.X = MathHelper.Clamp(point.X, Left, Right);
-			res.Y = MathHelper.Clamp(point.Y, Top, Bottom);
+			var res = new Vector2
+			{
+				X = MathHelper.Clamp(point.X, Left, Right),
+				Y = MathHelper.Clamp(point.Y, Top, Bottom)
+			};
 
 			// if point is inside the rectangle we need to push res to the border since it will be inside the rect
 			if (Contains(res))

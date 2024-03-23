@@ -11,7 +11,7 @@ namespace Nez
 
 		public static byte HexToByte(char c) => (byte)HEX.IndexOf(char.ToUpper(c));
 
-		public static Color Invert(this Color color) => new Color(255 - color.R, 255 - color.G, 255 - color.B, color.A);
+		public static Color Invert(this Color color) => new(255 - color.R, 255 - color.G, 255 - color.B, color.A);
 
 		public static Color HexToColor(string hex)
 		{
@@ -42,25 +42,29 @@ namespace Nez
 
 		public static Color Create(Color color, int alpha)
 		{
-			var newColor = new Color();
-			newColor.PackedValue = 0;
+			var newColor = new Color
+			{
+				PackedValue = 0,
 
-			newColor.R = color.R;
-			newColor.G = color.G;
-			newColor.B = color.B;
-			newColor.A = (byte)MathHelper.Clamp(alpha, Byte.MinValue, Byte.MaxValue);
+				R = color.R,
+				G = color.G,
+				B = color.B,
+				A = (byte)MathHelper.Clamp(alpha, Byte.MinValue, Byte.MaxValue)
+			};
 			return newColor;
 		}
 
 		public static Color Create(Color color, float alpha)
 		{
-			var newColor = new Color();
-			newColor.PackedValue = 0;
+			var newColor = new Color
+			{
+				PackedValue = 0,
 
-			newColor.R = color.R;
-			newColor.G = color.G;
-			newColor.B = color.B;
-			newColor.A = (byte)MathHelper.Clamp(alpha * 255, Byte.MinValue, Byte.MaxValue);
+				R = color.R,
+				G = color.G,
+				B = color.B,
+				A = (byte)MathHelper.Clamp(alpha * 255, Byte.MinValue, Byte.MaxValue)
+			};
 			return newColor;
 		}
 
@@ -188,8 +192,10 @@ namespace Nez
 				return Mathf.Clamp01(ret);
 			}
 
-			var c = new Color();
-			c.A = 255;
+			var c = new Color
+			{
+				A = 255
+			};
 
 			if (s == 0)
 			{

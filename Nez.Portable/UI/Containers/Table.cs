@@ -23,9 +23,9 @@ namespace Nez.UI
 			Element
 		}
 
-		public static Color DebugTableColor = new Color(0, 0, 255, 255);
-		public static Color DebugCellColor = new Color(255, 0, 0, 255);
-		public static Color DebugElementColor = new Color(0, 255, 0, 255);
+		public static Color DebugTableColor = new(0, 0, 255, 255);
+		public static Color DebugCellColor = new(255, 0, 0, 255);
+		public static Color DebugElementColor = new(0, 255, 0, 255);
 		static float[] _columnWeightedWidth, _rowWeightedHeight;
 
 		public override float MinWidth
@@ -80,9 +80,9 @@ namespace Nez.UI
 		int _columns, _rows;
 		bool _implicitEndRow;
 
-		List<Cell> _cells = new List<Cell>(4);
+		List<Cell> _cells = new(4);
 		Cell _cellDefaults;
-		List<Cell> _columnDefaults = new List<Cell>(2);
+		List<Cell> _columnDefaults = new(2);
 		Cell _rowDefaults;
 
 		bool _sizeInvalid = true;
@@ -333,8 +333,7 @@ namespace Nez.UI
 			{
 				var cell = _cells[i];
 				var element = cell.element;
-				if (element != null)
-					element.Remove();
+				element?.Remove();
 
 				Pool<Cell>.Free(cell);
 			}
@@ -826,8 +825,7 @@ namespace Nez.UI
 				_tableDebug = tableDebug;
 				if (_tableDebug == TableDebug.None)
 				{
-					if (_debugRects != null)
-						_debugRects.Clear();
+					_debugRects?.Clear();
 				}
 				else
 				{
@@ -1024,8 +1022,7 @@ namespace Nez.UI
 					var elementY = Mathf.Round(c.elementY);
 					c.SetElementBounds(elementX, elementY, elementWidth, elementHeight);
 
-					if (c.element != null)
-						c.element.SetBounds(elementX, elementY, elementWidth, elementHeight);
+					c.element?.SetBounds(elementX, elementY, elementWidth, elementHeight);
 				}
 			}
 			else
@@ -1036,8 +1033,7 @@ namespace Nez.UI
 					var elementY = c.elementY;
 					c.SetElementY(elementY);
 
-					if (c.element != null)
-						c.element.SetBounds(c.elementX, elementY, c.elementWidth, c.elementHeight);
+					c.element?.SetBounds(c.elementX, elementY, c.elementWidth, c.elementHeight);
 				}
 			}
 
@@ -1538,8 +1534,7 @@ namespace Nez.UI
 		void ComputeDebugRects(float x, float y, float layoutX, float layoutY, float layoutWidth, float layoutHeight,
 		                       float tableWidth, float tableHeight, float hpadding, float vpadding)
 		{
-			if (_debugRects != null)
-				_debugRects.Clear();
+			_debugRects?.Clear();
 
 			var currentX = x;
 			var currentY = y;
@@ -1587,7 +1582,7 @@ namespace Nez.UI
 		void AddDebugRect(float x, float y, float w, float h, Color color)
 		{
 			if (_debugRects == null)
-				_debugRects = new List<DebugRectangleF>();
+				_debugRects = [];
 
 			var rect = new DebugRectangleF(x, y, w, h, color);
 			_debugRects.Add(rect);

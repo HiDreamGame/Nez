@@ -10,7 +10,7 @@ namespace Nez
 	/// </summary>
 	public class ProjectileMover : Component
 	{
-		List<ITriggerListener> _tempTriggerList = new List<ITriggerListener>();
+		List<ITriggerListener> _tempTriggerList = [];
 		Collider _collider;
 
 

@@ -36,7 +36,7 @@ namespace Nez
 		/// <value>The position.</value>
 		public Vector3 Position
 		{
-			get => new Vector3(Transform.Position, _positionZ);
+			get => new(Transform.Position, _positionZ);
 			set
 			{
 				_positionZ = value.Z;
@@ -47,7 +47,7 @@ namespace Nez
 		/// <summary>
 		/// the scale of the object. 80 by default. You will need to adjust this depending on your Scene's backbuffer size.
 		/// </summary>
-		public Vector3 Scale = new Vector3(80f);
+		public Vector3 Scale = new(80f);
 
 		/// <summary>
 		/// wraps Transform.rotation for the Z rotation along with a private X and Y rotation.
@@ -55,7 +55,7 @@ namespace Nez
 		/// <value>The rotation.</value>
 		public Vector3 Rotation
 		{
-			get => new Vector3(_rotationXY, Transform.Rotation);
+			get => new(_rotationXY, Transform.Rotation);
 			set
 			{
 				_rotationXY.X = value.X;

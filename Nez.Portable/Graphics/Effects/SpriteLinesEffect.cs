@@ -15,7 +15,7 @@ namespace Nez
 		/// <value>The color of the line.</value>
 		public Color LineColor
 		{
-			get => new Color(_lineColor);
+			get => new(_lineColor);
 			set
 			{
 				var blinkVec = value.ToVector4();
@@ -62,7 +62,7 @@ namespace Nez
 			}
 		}
 
-		Vector4 _lineColor = new Vector4(1, 0, 0, 1);
+		Vector4 _lineColor = new(1, 0, 0, 1);
 		float _lineSize = 5f;
 		bool _isVertical = true;
 

@@ -17,8 +17,7 @@
 		void IAction<T>.Execute(T context)
 		{
 			var action = _reasoner.Select(context);
-			if (action != null)
-				action.Execute(context);
+			action?.Execute(context);
 		}
 	}
 }

@@ -30,12 +30,12 @@ namespace Nez
 		/// <summary>
 		/// default Material instance
 		/// </summary>
-		public static Material DefaultMaterial = new Material();
+		public static Material DefaultMaterial = new();
 
 		/// <summary>
 		/// default opaque Material used for PostProcessors
 		/// </summary>
-		public static Material DefaultOpaqueMaterial = new Material(BlendState.Opaque);
+		public static Material DefaultOpaqueMaterial = new(BlendState.Opaque);
 
 		/// <summary>
 		/// BlendState used by the Batcher for the current RenderableComponent

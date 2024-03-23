@@ -9,8 +9,8 @@ namespace Nez
 	{
 		public static bool DrawTextFromBottom;
 
-		static List<DebugDrawItem> _debugDrawItems = new List<DebugDrawItem>();
-		static List<DebugDrawItem> _screenSpaceDebugDrawItems = new List<DebugDrawItem>();
+		static List<DebugDrawItem> _debugDrawItems = [];
+		static List<DebugDrawItem> _screenSpaceDebugDrawItems = [];
 
 		[Conditional("DEBUG")]
 		internal static void Render()

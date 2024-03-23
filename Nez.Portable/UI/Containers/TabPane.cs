@@ -28,8 +28,8 @@ namespace Nez.UI
 
 			Top().Left();
 
-			Tabs = new List<Tab>();
-			TabButtons = new List<TabButton>();
+			Tabs = [];
+			TabButtons = [];
 
 			_buttonsTable = new Table();
 			_buttonsTable.SetFillParent(true);

@@ -14,7 +14,7 @@ namespace Nez
 
 		UICanvas ui;
 		ScreenSpaceCamera _camera;
-		List<InspectorList> _inspectors = new List<InspectorList>();
+		List<InspectorList> _inspectors = [];
 
 		// ui fields
 		Skin _skin;

@@ -115,7 +115,7 @@ namespace Nez.Tiled
 		/// <summary>
 		/// temporary storage for all the tiles that intersect the bounds being checked
 		/// </summary>
-		List<TmxLayerTile> _collidingTiles = new List<TmxLayerTile>();
+		List<TmxLayerTile> _collidingTiles = [];
 
 		/// <summary>
 		/// temporary storage to avoid having to pass it around

@@ -13,7 +13,7 @@ namespace Nez.Verlet
 		/// <summary>
 		/// gravity for the simulation
 		/// </summary>
-		public Vector2 Gravity = new Vector2(0, 980f);
+		public Vector2 Gravity = new(0, 980f);
 
 		/// <summary>
 		/// number of iterations that will be used for Constraint solving
@@ -42,11 +42,11 @@ namespace Nez.Verlet
 
 		Particle _draggedParticle;
 
-		FastList<Composite> _composites = new FastList<Composite>();
+		FastList<Composite> _composites = new();
 
 		// collision helpers
 		internal static Collider[] _colliders = new Collider[4];
-		Circle _tempCircle = new Circle(1);
+		Circle _tempCircle = new(1);
 
 		// timing
 		float _leftOverTime;

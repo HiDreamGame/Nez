@@ -52,7 +52,7 @@ namespace Nez.Verlet
 		/// <summary>
 		/// Polygon shared amongst all DistanceConstraints. Used for collision detection.
 		/// </summary>
-		static Polygon _polygon = new Polygon(2, 1);
+		static Polygon _polygon = new(2, 1);
 
 
 		public DistanceConstraint(Particle first, Particle second, float stiffness, float distance = -1)

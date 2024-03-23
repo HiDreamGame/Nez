@@ -20,17 +20,18 @@ namespace Nez.Svg
 		}
 
 		public Vector2[] Points;
-
+		private static readonly char[] separator = [' '];
+		private static readonly char[] separatorArray = [','];
 
 		void ParsePoints(string str)
 		{
 			var format = System.Globalization.CultureInfo.InvariantCulture.NumberFormat;
-			var pairs = str.Split(new char[] {' '}, System.StringSplitOptions.RemoveEmptyEntries);
+			var pairs = str.Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
 			Points = new Vector2[pairs.Length];
 
 			for (var i = 0; i < pairs.Length; i++)
 			{
-				var parts = pairs[i].Split(new char[] {','}, System.StringSplitOptions.RemoveEmptyEntries);
+				var parts = pairs[i].Split(separatorArray, System.StringSplitOptions.RemoveEmptyEntries);
 				Points[i] = new Vector2(float.Parse(parts[0], format), float.Parse(parts[1], format));
 			}
 		}

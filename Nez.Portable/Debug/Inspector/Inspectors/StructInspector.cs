@@ -10,7 +10,7 @@ namespace Nez
 {
 	public class StructInspector : Inspector
 	{
-		List<Inspector> _inspectors = new List<Inspector>();
+		List<Inspector> _inspectors = [];
 
 
 		public override void Initialize(Table table, Skin skin, float leftCellWidth)

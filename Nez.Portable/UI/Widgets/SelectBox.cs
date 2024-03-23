@@ -12,7 +12,7 @@ namespace Nez.UI
 		public Action<T> OnChanged;
 
 		SelectBoxStyle style;
-		List<T> _items = new List<T>();
+		List<T> _items = [];
 		ArraySelection<T> _selection;
 		SelectBoxList<T> _selectBoxList;
 		float _prefWidth, _prefHeight;
@@ -100,8 +100,7 @@ namespace Nez.UI
 			float width = GetWidth();
 			float height = GetHeight();
 
-			if (background != null)
-				background.Draw(batcher, x, y, width, height, color);
+			background?.Draw(batcher, x, y, width, height, color);
 
 			var selected = _selection.First();
 			if (selected != null)

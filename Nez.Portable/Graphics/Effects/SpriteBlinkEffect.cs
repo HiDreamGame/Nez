@@ -13,7 +13,7 @@ namespace Nez
 		/// <value>The color of the blink.</value>
 		public Color BlinkColor
 		{
-			get => new Color(_blinkColor);
+			get => new(_blinkColor);
 			set
 			{
 				var blinkVec = value.ToVector4();
@@ -25,7 +25,7 @@ namespace Nez
 			}
 		}
 
-		Vector4 _blinkColor = new Vector4(1, 1, 1, 0);
+		Vector4 _blinkColor = new(1, 1, 1, 0);
 		EffectParameter _blinkColorParam;
 
 

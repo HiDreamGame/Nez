@@ -31,12 +31,12 @@ namespace Nez.Shadows
 		float _spotStartAngle, _spotEndAngle;
 
 		// TODO: use FastList and convert EndPoint and Segment to structs
-		List<EndPoint> _endpoints = new List<EndPoint>();
-		List<Segment> _segments = new List<Segment>();
+		List<EndPoint> _endpoints = [];
+		List<Segment> _segments = [];
 		EndPointComparer _radialComparer;
 
 		static Vector2[] _cornerCache = new Vector2[4];
-		static LinkedList<Segment> _openSegments = new LinkedList<Segment>();
+		static LinkedList<Segment> _openSegments = new();
 
 
 		public VisibilityComputer()

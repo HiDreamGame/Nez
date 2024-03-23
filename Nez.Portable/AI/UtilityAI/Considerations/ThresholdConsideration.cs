@@ -12,7 +12,7 @@ namespace Nez.AI.UtilityAI
 
 		public IAction<T> Action { get; set; }
 
-		List<IAppraisal<T>> _appraisals = new List<IAppraisal<T>>();
+		List<IAppraisal<T>> _appraisals = [];
 
 
 		public ThresholdConsideration(float threshold)

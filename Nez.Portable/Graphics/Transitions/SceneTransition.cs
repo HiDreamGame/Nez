@@ -185,8 +185,7 @@ namespace Nez
 				PreviousSceneRender = null;
 			}
 
-			if (OnTransitionCompleted != null)
-				OnTransitionCompleted();
+			OnTransitionCompleted?.Invoke();
 		}
 
 		/// <summary>

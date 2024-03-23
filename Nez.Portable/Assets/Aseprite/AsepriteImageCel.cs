@@ -43,7 +43,7 @@ namespace Nez.Aseprite
 		/// </returns>
 		public Sprite ToSprite()
 		{
-			Texture2D texture = new Texture2D(Core.GraphicsDevice, Width, Height);
+			Texture2D texture = new(Core.GraphicsDevice, Width, Height);
 			texture.SetData<Color>(Pixels);
 			return new Sprite(texture);
 		}

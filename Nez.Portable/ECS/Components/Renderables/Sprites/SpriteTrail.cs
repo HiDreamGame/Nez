@@ -128,8 +128,8 @@ namespace Nez.Sprites
 		public Color FadeToColor = Color.Transparent;
 
 		int _maxSpriteInstances = 15;
-		Stack<SpriteTrailInstance> _availableSpriteTrailInstances = new Stack<SpriteTrailInstance>();
-		List<SpriteTrailInstance> _liveSpriteTrailInstances = new List<SpriteTrailInstance>(5);
+		Stack<SpriteTrailInstance> _availableSpriteTrailInstances = new();
+		List<SpriteTrailInstance> _liveSpriteTrailInstances = new(5);
 		Vector2 _lastPosition;
 		SpriteRenderer _sprite;
 

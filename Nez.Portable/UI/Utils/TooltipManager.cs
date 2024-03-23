@@ -49,7 +49,7 @@ namespace Nez.UI
 		/// </summary>
 		public float EdgeDistance = 8;
 
-		List<Tooltip> _shownTooltips = new List<Tooltip>();
+		List<Tooltip> _shownTooltips = [];
 		float _time = 2;
 		Tooltip _shownTooltip;
 		ITimer _showTask, _resetTask;

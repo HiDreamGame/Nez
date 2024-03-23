@@ -8,24 +8,24 @@ namespace Nez
 		public Cube3D()
 		{
 			Vector3[] normals =
-			{
+			[
 				new Vector3(0, 0, 1),
 				new Vector3(0, 0, -1),
 				new Vector3(1, 0, 0),
 				new Vector3(-1, 0, 0),
 				new Vector3(0, 1, 0),
 				new Vector3(0, -1, 0),
-			};
+			];
 
 			Color[] colors =
-			{
+			[
 				Color.Red,
 				Color.Yellow,
 				Color.Blue,
 				Color.Violet,
 				Color.Green,
 				Color.Orange
-			};
+			];
 
 			for (var i = 0; i < normals.Length; i++)
 			{

@@ -29,7 +29,7 @@ namespace Nez.Svg
 
 					// discard whitespace and comma but keep the -
 					const string argSeparators = @"[\s,]|(?=-)";
-					var remainingargs = commandSet.Substring(1);
+					var remainingargs = commandSet[1..];
 					var splitArgs = Regex.Split(remainingargs, argSeparators)
 						.Where(t => !string.IsNullOrEmpty(t));
 
@@ -273,7 +273,7 @@ namespace Nez.Svg
 				string command;
 				if (char.IsLetter(path[i]) && path[i] != 'e') //e is used in scientific notiation. but not svg path
 				{
-					command = path.Substring(commandStart, i - commandStart).Trim();
+					command = path[commandStart..i].Trim();
 					commandStart = i;
 
 					if (!string.IsNullOrEmpty(command))

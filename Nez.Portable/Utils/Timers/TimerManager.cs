@@ -9,7 +9,7 @@ namespace Nez.Timers
 	/// </summary>
 	public class TimerManager : GlobalManager
 	{
-		List<Timer> _timers = new List<Timer>();
+		List<Timer> _timers = [];
 
 
 		public override void Update()

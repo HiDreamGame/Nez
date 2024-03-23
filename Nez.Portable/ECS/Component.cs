@@ -123,8 +123,7 @@ namespace Nez
 			if (_updateOrder != updateOrder)
 			{
 				_updateOrder = updateOrder;
-				if (Entity != null)
-					Entity.Components.MarkEntityListUnsorted();
+				Entity?.Components.MarkEntityListUnsorted();
 			}
 
 			return this;

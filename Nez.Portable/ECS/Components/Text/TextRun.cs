@@ -76,8 +76,8 @@ namespace Nez
 		Vector2 _scale = Vector2.One;
 		CharDetails[] _charDetails;
 
-		static readonly float[] _cornerOffsetX = {0.0f, 1.0f, 0.0f, 1.0f};
-		static readonly float[] _cornerOffsetY = {0.0f, 0.0f, 1.0f, 1.0f};
+		static readonly float[] _cornerOffsetX = [0.0f, 1.0f, 0.0f, 1.0f];
+		static readonly float[] _cornerOffsetY = [0.0f, 0.0f, 1.0f, 1.0f];
 
 
 		public TextRun(BitmapFont font)

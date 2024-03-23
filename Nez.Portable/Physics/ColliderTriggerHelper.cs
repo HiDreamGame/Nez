@@ -13,14 +13,14 @@ namespace Nez
 		/// <summary>
 		/// stores all the active intersection pairs that occured in the current frame
 		/// </summary>
-		HashSet<Pair<Collider>> _activeTriggerIntersections = new HashSet<Pair<Collider>>();
+		HashSet<Pair<Collider>> _activeTriggerIntersections = [];
 
 		/// <summary>
 		/// stores the previous frames intersection pairs so that we can detect exits after moving this frame
 		/// </summary>
-		HashSet<Pair<Collider>> _previousTriggerIntersections = new HashSet<Pair<Collider>>();
+		HashSet<Pair<Collider>> _previousTriggerIntersections = [];
 
-		List<ITriggerListener> _tempTriggerList = new List<ITriggerListener>();
+		List<ITriggerListener> _tempTriggerList = [];
 
 
 		public ColliderTriggerHelper(Entity entity)

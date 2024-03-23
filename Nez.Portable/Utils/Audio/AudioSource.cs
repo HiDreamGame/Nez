@@ -9,7 +9,7 @@ namespace Nez.Audio
 	/// </summary>
 	public class AudioSource
 	{
-		List<SoundEffect> _soundEffects = new List<SoundEffect>();
+		List<SoundEffect> _soundEffects = [];
 		bool _useRandomPitch;
 		float _pitchMin, _pitchMax;
 		bool _useRandomPan;

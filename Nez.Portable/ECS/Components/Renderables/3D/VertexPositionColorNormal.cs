@@ -13,8 +13,7 @@ namespace Nez
 		public Vector3 Normal;
 
 
-		static readonly VertexDeclaration _vertexDeclaration = new VertexDeclaration
-		(
+		static readonly VertexDeclaration _vertexDeclaration = new		(
 			new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
 			new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0),
 			new VertexElement(16, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0)

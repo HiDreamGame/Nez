@@ -12,24 +12,17 @@ namespace Nez
 	/// for( var i = 0; i &lt;= list.length; i++ )
 	/// 	var item = list.buffer[i];
 	/// </summary>
-	public class FastList<T>
+	public class FastList<T>(int size)
 	{
 		/// <summary>
 		/// direct access to the backing buffer. Do not use buffer.Length! Use FastList.length
 		/// </summary>
-		public T[] Buffer;
+		public T[] Buffer = new T[size];
 
 		/// <summary>
 		/// direct access to the length of the filled items in the buffer. Do not change.
 		/// </summary>
 		public int Length = 0;
-
-
-		public FastList(int size)
-		{
-			Buffer = new T[size];
-		}
-
 
 		public FastList() : this(5)
 		{
@@ -101,7 +94,7 @@ namespace Nez
 			Length--;
 			if (index < Length)
 				Array.Copy(Buffer, index + 1, Buffer, index, Length - index);
-			Buffer[Length] = default(T);
+			Buffer[Length] = default;
 		}
 
 
@@ -114,7 +107,7 @@ namespace Nez
 			Insist.IsTrue(index < Length, "Index out of range!");
 
 			Buffer[index] = Buffer[Length - 1];
-			Buffer[Length - 1] = default(T);
+			Buffer[Length - 1] = default;
 			--Length;
 		}
 

@@ -270,9 +270,11 @@ namespace Nez.BitmapFonts
 			// load texture information
 			foreach (XmlNode node in root.SelectNodes("pages/page"))
 			{
-				var page = new Page();
-				page.Id = Convert.ToInt32(node.Attributes["id"].Value);
-				page.Filename = node.Attributes["file"].Value;
+				var page = new Page
+				{
+					Id = Convert.ToInt32(node.Attributes["id"].Value),
+					Filename = node.Attributes["file"].Value
+				};
 
 				pageData.Add(page.Id, page);
 			}
@@ -282,17 +284,19 @@ namespace Nez.BitmapFonts
 			// load character information
 			foreach (XmlNode node in root.SelectNodes("chars/char"))
 			{
-				var character = new Character();
-				character.Char = (char) Convert.ToInt32(node.Attributes["id"].Value);
-				character.Bounds = new Rectangle(Convert.ToInt32(node.Attributes["x"].Value),
+				var character = new Character
+				{
+					Char = (char)Convert.ToInt32(node.Attributes["id"].Value),
+					Bounds = new Rectangle(Convert.ToInt32(node.Attributes["x"].Value),
 					Convert.ToInt32(node.Attributes["y"].Value),
 					Convert.ToInt32(node.Attributes["width"].Value),
-					Convert.ToInt32(node.Attributes["height"].Value));
-				character.Offset = new Point(Convert.ToInt32(node.Attributes["xoffset"].Value),
-					Convert.ToInt32(node.Attributes["yoffset"].Value));
-				character.XAdvance = Convert.ToInt32(node.Attributes["xadvance"].Value);
-				character.TexturePage = Convert.ToInt32(node.Attributes["page"].Value);
-				character.Channel = Convert.ToInt32(node.Attributes["chnl"].Value);
+					Convert.ToInt32(node.Attributes["height"].Value)),
+					Offset = new Point(Convert.ToInt32(node.Attributes["xoffset"].Value),
+					Convert.ToInt32(node.Attributes["yoffset"].Value)),
+					XAdvance = Convert.ToInt32(node.Attributes["xadvance"].Value),
+					TexturePage = Convert.ToInt32(node.Attributes["page"].Value),
+					Channel = Convert.ToInt32(node.Attributes["chnl"].Value)
+				};
 
 				charDictionary[character.Char] = character;
 			}

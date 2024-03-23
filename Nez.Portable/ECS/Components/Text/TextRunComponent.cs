@@ -43,8 +43,7 @@
 
 		public override void Render(Batcher batcher, Camera camera)
 		{
-			if (_textRun != null)
-				_textRun.Render(batcher);
+			_textRun?.Render(batcher);
 		}
 	}
 }

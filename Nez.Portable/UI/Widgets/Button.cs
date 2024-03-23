@@ -141,8 +141,7 @@ namespace Nez.UI
 
 			SetChecked(!_isChecked, true);
 
-			if (OnClicked != null)
-				OnClicked(this);
+			OnClicked?.Invoke(this);
 		}
 
 		void IInputListener.OnRightMouseUp(Vector2 mousePos)
@@ -151,8 +150,7 @@ namespace Nez.UI
 
 			SetChecked(!_isChecked, true);
 
-			if (OnRightClicked != null)
-				OnRightClicked(this);
+			OnRightClicked?.Invoke(this);
 		}
 
 
@@ -246,8 +244,7 @@ namespace Nez.UI
 
 			SetChecked(!_isChecked, true);
 
-			if (OnClicked != null)
-				OnClicked(this);
+			OnClicked?.Invoke(this);
 		}
 
 		#endregion

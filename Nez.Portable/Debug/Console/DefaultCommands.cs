@@ -257,7 +257,7 @@ namespace Nez.Console
 			if (Instance._sorted.Contains(command))
 			{
 				var c = Instance._commands[command];
-				StringBuilder str = new StringBuilder();
+				StringBuilder str = new();
 
 				//Title
 				str.Append(":: ");
@@ -280,7 +280,7 @@ namespace Nez.Console
 			}
 			else
 			{
-				StringBuilder str = new StringBuilder();
+				StringBuilder str = new();
 				str.Append("Commands list: ");
 				str.Append(string.Join(", ", Instance._sorted));
 				Instance.Log(str.ToString());

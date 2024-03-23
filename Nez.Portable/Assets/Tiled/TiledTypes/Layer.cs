@@ -11,10 +11,10 @@ namespace Nez.Tiled
 		public bool Visible { get; set; }
 		public float OffsetX { get; set; }
 		public float OffsetY { get; set; }
-		public Vector2 Offset => new Vector2(OffsetX, OffsetY);
+		public Vector2 Offset => new(OffsetX, OffsetY);
 		public float ParallaxFactorX { get; set; }
 		public float ParallaxFactorY { get; set; }
-		public Vector2 ParallaxFactor => new Vector2(ParallaxFactorX, ParallaxFactorY);
+		public Vector2 ParallaxFactor => new(ParallaxFactorX, ParallaxFactorY);
 
 		public Dictionary<string, string> Properties { get; set; }
 
@@ -55,7 +55,7 @@ namespace Nez.Tiled
 		public int Gid;
 		public int X;
 		public int Y;
-		public Vector2 Position => new Vector2(X, Y);
+		public Vector2 Position => new(X, Y);
 		public bool HorizontalFlip;
 		public bool VerticalFlip;
 		public bool DiagonalFlip;

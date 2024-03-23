@@ -8,7 +8,7 @@ namespace Nez
 	/// </summary>
 	public static class ListPool<T>
 	{
-		static readonly Queue<List<T>> _objectQueue = new Queue<List<T>>();
+		static readonly Queue<List<T>> _objectQueue = new();
 
 
 		/// <summary>
@@ -21,7 +21,7 @@ namespace Nez
 			if (cacheCount > 0)
 			{
 				for (var i = 0; i < cacheCount; i++)
-					_objectQueue.Enqueue(new List<T>());
+					_objectQueue.Enqueue([]);
 			}
 		}
 
@@ -51,7 +51,7 @@ namespace Nez
 			if (_objectQueue.Count > 0)
 				return _objectQueue.Dequeue();
 
-			return new List<T>();
+			return [];
 		}
 
 		/// <summary>

@@ -114,8 +114,8 @@ namespace Nez.PhysicsShapes
 
 		#region Retired Polygon to Polygon
 
-		static Vector2[] _satAxisArray = new Vector2[0];
-		static float[] _satTimerPerAxis = new float[0];
+		static Vector2[] _satAxisArray = [];
+		static float[] _satTimerPerAxis = [];
 
 		[Obsolete]
 		public static bool PolygonToPolygonCast(Polygon first, Polygon second, Vector2 deltaMovement,

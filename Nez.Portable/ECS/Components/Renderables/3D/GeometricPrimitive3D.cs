@@ -8,8 +8,8 @@ namespace Nez
 {
 	public abstract class GeometricPrimitive3D : Renderable3D, IDisposable
 	{
-		protected List<VertexPositionColorNormal> _vertices = new List<VertexPositionColorNormal>();
-		protected List<ushort> _indices = new List<ushort>();
+		protected List<VertexPositionColorNormal> _vertices = [];
+		protected List<ushort> _indices = [];
 
 		VertexBuffer _vertexBuffer;
 		IndexBuffer _indexBuffer;
@@ -34,11 +34,9 @@ namespace Nez
 		/// </summary>
 		protected void InitializePrimitive()
 		{
-			if (_vertexBuffer != null)
-				_vertexBuffer.Dispose();
+			_vertexBuffer?.Dispose();
 
-			if (_indexBuffer != null)
-				_indexBuffer.Dispose();
+			_indexBuffer?.Dispose();
 
 			// create a vertex buffer, and copy our vertex data into it.
 			_vertexBuffer = new VertexBuffer(Core.GraphicsDevice, typeof(VertexPositionColorNormal), _vertices.Count,
@@ -85,14 +83,11 @@ namespace Nez
 		{
 			if (disposing)
 			{
-				if (_vertexBuffer != null)
-					_vertexBuffer.Dispose();
+				_vertexBuffer?.Dispose();
 
-				if (_indexBuffer != null)
-					_indexBuffer.Dispose();
+				_indexBuffer?.Dispose();
 
-				if (_basicEffect != null)
-					_basicEffect.Dispose();
+				_basicEffect?.Dispose();
 			}
 		}
 

@@ -10,7 +10,7 @@ namespace Nez.AI.BehaviorTrees
 	{
 		public AbortTypes AbortType = AbortTypes.None;
 
-		protected List<Behavior<T>> _children = new List<Behavior<T>>();
+		protected List<Behavior<T>> _children = [];
 		protected bool _hasLowerPriorityConditionalAbort;
 		protected int _currentChildIndex = 0;
 

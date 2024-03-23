@@ -10,14 +10,14 @@ namespace Nez
 		/// <summary>
 		/// list of components added to the entity
 		/// </summary>
-		FastList<IRenderable> _components = new FastList<IRenderable>();
+		FastList<IRenderable> _components = new();
 
 		/// <summary>
 		/// tracks components by renderLayer for easy retrieval
 		/// </summary>
-		Dictionary<int, FastList<IRenderable>> _componentsByRenderLayer = new Dictionary<int, FastList<IRenderable>>();
+		Dictionary<int, FastList<IRenderable>> _componentsByRenderLayer = [];
 
-		List<int> _unsortedRenderLayers = new List<int>();
+		List<int> _unsortedRenderLayers = [];
 		bool _componentsNeedSort = true;
 
 
@@ -46,9 +46,9 @@ namespace Nez
 		{
 			// a bit of care needs to be taken in case a renderLayer is changed before the component is "live". this can happen when a component
 			// changes its renderLayer immediately after being created
-			if (_componentsByRenderLayer.ContainsKey(oldRenderLayer) && _componentsByRenderLayer[oldRenderLayer].Contains(component))
+			if (_componentsByRenderLayer.TryGetValue(oldRenderLayer, out FastList<IRenderable> value) && value.Contains(component))
 			{
-				_componentsByRenderLayer[oldRenderLayer].Remove(component);
+				value.Remove(component);
 				AddToRenderLayerList(component, newRenderLayer);
 			}
 		}

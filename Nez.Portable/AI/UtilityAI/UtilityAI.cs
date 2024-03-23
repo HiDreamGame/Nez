@@ -31,8 +31,7 @@
 			{
 				_elapsedTime += UpdatePeriod;
 				var action = _rootReasoner.Select(_context);
-				if (action != null)
-					action.Execute(_context);
+				action?.Execute(_context);
 			}
 		}
 	}

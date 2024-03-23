@@ -7,7 +7,7 @@ namespace Nez
 	public static class Random
 	{
 		private static int _seed = Environment.TickCount;
-		public static System.Random RNG = new System.Random(_seed);
+		public static System.Random RNG = new(_seed);
 
 
 		/// <summary>

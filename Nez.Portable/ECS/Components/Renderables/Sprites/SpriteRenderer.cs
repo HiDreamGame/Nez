@@ -43,7 +43,7 @@ namespace Nez.Sprites
 		/// <value>The origin normalized.</value>
 		public Vector2 OriginNormalized
 		{
-			get => new Vector2(_origin.X / Width * Entity.Transform.Scale.X,
+			get => new(_origin.X / Width * Entity.Transform.Scale.X,
 				_origin.Y / Height * Entity.Transform.Scale.Y);
 			set => SetOrigin(new Vector2(value.X * Width / Entity.Transform.Scale.X,
 				value.Y * Height / Entity.Transform.Scale.Y));

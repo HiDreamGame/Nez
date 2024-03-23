@@ -13,7 +13,7 @@ namespace Nez
 		/// <summary>
 		/// The indexes of triangle list entries for the list of points used in the last triangulate call.
 		/// </summary>
-		public List<int> TriangleIndices = new List<int>();
+		public List<int> TriangleIndices = [];
 
 		int[] _triPrev = new int[12];
 		int[] _triNext = new int[12];

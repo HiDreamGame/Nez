@@ -66,8 +66,8 @@ namespace Nez.Systems
 		/// </summary>
 		bool _isInUpdate;
 
-		List<CoroutineImpl> _unblockedCoroutines = new List<CoroutineImpl>();
-		List<CoroutineImpl> _shouldRunNextFrame = new List<CoroutineImpl>();
+		List<CoroutineImpl> _unblockedCoroutines = [];
+		List<CoroutineImpl> _shouldRunNextFrame = [];
 
 
 		/// <summary>

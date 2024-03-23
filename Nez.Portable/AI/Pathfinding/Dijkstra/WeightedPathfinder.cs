@@ -25,8 +25,10 @@ namespace Nez.AI.Pathfinding
 		public static bool Search<T>(IWeightedGraph<T> graph, T start, T goal, out Dictionary<T, T> cameFrom)
 		{
 			var foundPath = false;
-			cameFrom = new Dictionary<T, T>();
-			cameFrom.Add(start, start);
+			cameFrom = new Dictionary<T, T>
+			{
+				{ start, start }
+			};
 
 			var costSoFar = new Dictionary<T, int>();
 			var frontier = new PriorityQueue<WeightedNode<T>>(1000);
@@ -47,9 +49,10 @@ namespace Nez.AI.Pathfinding
 				foreach (var next in graph.GetNeighbors(current.Data))
 				{
 					var newCost = costSoFar[current.Data] + graph.Cost(current.Data, next);
-					if (!costSoFar.ContainsKey(next) || newCost < costSoFar[next])
+					if (!costSoFar.TryGetValue(next, out int value) || newCost < value)
 					{
-						costSoFar[next] = newCost;
+						value = newCost;
+						costSoFar[next] = value;
 						var priority = newCost;
 						frontier.Enqueue(new WeightedNode<T>(next), priority);
 						cameFrom[next] = current.Data;

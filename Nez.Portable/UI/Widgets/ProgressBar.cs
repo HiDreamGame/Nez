@@ -138,8 +138,7 @@ namespace Nez.UI
 			_value = value;
 
 			// fire changed event
-			if (OnChanged != null)
-				OnChanged(_value);
+			OnChanged?.Invoke(_value);
 
 			return this;
 		}
@@ -241,14 +240,10 @@ namespace Nez.UI
 						(int) (position + knobHeightHalf), color);
 				}
 
-				if (knobAfter != null)
-				{
-					knobAfter.Draw(batcher, x + ((width - knobAfter.MinWidth) * 0.5f), y + position + knobHeightHalf,
+				knobAfter?.Draw(batcher, x + ((width - knobAfter.MinWidth) * 0.5f), y + position + knobHeightHalf,
 						knobAfter.MinWidth, height - position - knobHeightHalf, color);
-				}
 
-				if (knob != null)
-					knob.Draw(batcher, x + (int) ((width - knobWidth) * 0.5f), (int) (y + position), knobWidth,
+				knob?.Draw(batcher, x + (int) ((width - knobWidth) * 0.5f), (int) (y + position), knobWidth,
 						knobHeight, color);
 			}
 			else
@@ -291,15 +286,11 @@ namespace Nez.UI
 						(int) (position + knobWidthHalf), knobBefore.MinHeight, color);
 				}
 
-				if (knobAfter != null)
-				{
-					knobAfter.Draw(batcher, x + (int) (position + knobWidthHalf),
+				knobAfter?.Draw(batcher, x + (int) (position + knobWidthHalf),
 						y + (int) ((height - knobAfter.MinHeight) * 0.5f),
 						width - (int) (position + knobWidthHalf), knobAfter.MinHeight, color);
-				}
 
-				if (knob != null)
-					knob.Draw(batcher, (int) (x + position), (int) (y + (height - knobHeight) * 0.5f), knobWidth,
+				knob?.Draw(batcher, (int) (x + position), (int) (y + (height - knobHeight) * 0.5f), knobWidth,
 						knobHeight, color);
 			}
 		}
@@ -371,8 +362,10 @@ namespace Nez.UI
 
 		public static ProgressBarStyle Create(Color knobBeforeColor, Color knobAfterColor)
 		{
-			var knobBefore = new PrimitiveDrawable(knobBeforeColor);
-			knobBefore.MinHeight = 10;
+			var knobBefore = new PrimitiveDrawable(knobBeforeColor)
+			{
+				MinHeight = 10
+			};
 
 			var knobAfter = new PrimitiveDrawable(knobAfterColor);
 			knobAfter.MinWidth = knobAfter.MinHeight = 10;

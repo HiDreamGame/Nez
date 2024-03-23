@@ -17,9 +17,9 @@ namespace Nez.AI.GOAP
 		public string[] ConditionNames = new string[MAX_CONDITIONS];
 
 
-		List<Action> _actions = new List<Action>();
+		List<Action> _actions = [];
 
-		List<Action> _viableActions = new List<Action>();
+		List<Action> _viableActions = [];
 
 		/// <summary>
 		/// Preconditions for all actions

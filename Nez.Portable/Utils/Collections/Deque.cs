@@ -532,7 +532,7 @@ namespace System.Collections.Generic
 			}
 
 			T result = buffer[startOffset];
-			buffer[PreShiftStartOffset(1)] = default(T);
+			buffer[PreShiftStartOffset(1)] = default;
 			DecrementCount(1);
 			return result;
 		}
@@ -549,7 +549,7 @@ namespace System.Collections.Generic
 			DecrementCount(1);
 			var endIndex = ToBufferIndex(Count);
 			T result = buffer[endIndex];
-			buffer[endIndex] = default(T);
+			buffer[endIndex] = default;
 
 			return result;
 		}

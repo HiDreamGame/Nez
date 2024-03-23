@@ -24,7 +24,7 @@ namespace Nez.Systems
 	/// </summary>
 	public class NezContentManager : ContentManager
 	{
-		Dictionary<string, Effect> _loadedEffects = new Dictionary<string, Effect>();
+		Dictionary<string, Effect> _loadedEffects = [];
 
 		List<IDisposable> _disposableAssets;
 
@@ -240,8 +240,10 @@ namespace Nez.Systems
 		public T LoadNezEffect<T>() where T : Effect, new()
 		{
 			var cacheKey = typeof(T).Name + "-" + Utils.RandomString(5);
-			var effect = new T();
-			effect.Name = cacheKey;
+			var effect = new T
+			{
+				Name = cacheKey
+			};
 			_loadedEffects[cacheKey] = effect;
 
 			return effect;
@@ -405,9 +407,9 @@ namespace Nez.Systems
 		/// <param name="effectName">Effect.name</param>
 		public bool UnloadEffect(string effectName)
 		{
-			if (_loadedEffects.ContainsKey(effectName))
+			if (_loadedEffects.TryGetValue(effectName, out Effect value))
 			{
-				_loadedEffects[effectName].Dispose();
+				value.Dispose();
 				_loadedEffects.Remove(effectName);
 				return true;
 			}
@@ -512,7 +514,7 @@ namespace Nez.Systems
 					}
 				}
 #endif
-				return assembly.GetManifestResourceStream(assetName.Substring(6));
+				return assembly.GetManifestResourceStream(assetName[6..]);
 			}
 
 			return base.OpenStream(assetName);

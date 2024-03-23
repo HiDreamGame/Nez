@@ -72,7 +72,7 @@
 					}
 
 					SimpleNode first = _queue.First;
-					return (first != null ? first.Data : default(T));
+					return (first != null ? first.Data : default);
 				}
 			}
 		}
@@ -139,7 +139,7 @@
 		{
 			lock (_queue)
 			{
-				SimpleNode node = new SimpleNode(item);
+				SimpleNode node = new(item);
 				if (_queue.Count == _queue.MaxSize)
 				{
 					_queue.Resize(_queue.MaxSize * 2 + 1);
@@ -198,7 +198,7 @@
 
 		public IEnumerator<T> GetEnumerator()
 		{
-			List<T> queueData = new List<T>();
+			List<T> queueData = [];
 			lock (_queue)
 			{
 				//Copy to a separate list because we don't want to 'yield return' inside a lock

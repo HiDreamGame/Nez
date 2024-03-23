@@ -9,7 +9,7 @@ namespace Nez.UI.Containers
 	public class Tree : Group, IInputListener
 	{
 		TreeStyle style;
-		readonly List<Node> rootNodes = new List<Node>(0);
+		readonly List<Node> rootNodes = new(0);
 		readonly Selection<Node> selection;
 		float ySpacing = 10, iconSpacingLeft = 2, iconSpacingRight = 2, padding = 0, indentSpacing;
 		private float leftColumnWidth, prefWidth, prefHeight;
@@ -539,7 +539,7 @@ namespace Nez.UI.Containers
 	{
 		internal Element actor;
 		internal Node parent;
-		internal List<Node> children = new List<Node>(0);
+		internal List<Node> children = new(0);
 		internal bool selectable = true;
 		internal bool expanded;
 		internal IDrawable icon;
@@ -623,8 +623,8 @@ namespace Nez.UI.Containers
 			var tree = GetTree();
 			if (tree != null)
 				tree.Remove(this);
-			else if (parent != null) //
-				parent.Remove(this);
+			else //
+				parent?.Remove(this);
 		}
 
 		public void Remove(Node node)

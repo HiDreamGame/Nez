@@ -57,8 +57,10 @@ namespace Nez
 			_textField =
 				new TextField(
 					_parameterType.GetTypeInfo().IsValueType ? Activator.CreateInstance(_parameterType).ToString() : "",
-					skin);
-			_textField.ShouldIgnoreTextUpdatesWhileFocused = false;
+					skin)
+				{
+					ShouldIgnoreTextUpdatesWhileFocused = false
+				};
 
 			// add a filter for float/int
 			if (_parameterType == typeof(float))
@@ -82,7 +84,7 @@ namespace Nez
 		{
 			if (_parameterType == null)
 			{
-				(_memberInfo as MethodInfo).Invoke(_target, new object[] { });
+				(_memberInfo as MethodInfo).Invoke(_target, []);
 			}
 			else
 			{

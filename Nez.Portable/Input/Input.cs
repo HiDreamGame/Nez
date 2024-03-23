@@ -20,7 +20,7 @@ namespace Nez
 		static KeyboardState _currentKbState;
 		static MouseState _previousMouseState;
 		static MouseState _currentMouseState;
-		static internal FastList<VirtualInput> _virtualInputs = new FastList<VirtualInput>();
+		static internal FastList<VirtualInput> _virtualInputs = new();
 		static int _maxSupportedGamePads;
 
 		/// <summary>
@@ -348,7 +348,7 @@ namespace Nez
 		/// unscaled mouse position. This is the actual screen space value
 		/// </summary>
 		/// <value>The raw mouse position.</value>
-		public static Point RawMousePosition => new Point(_currentMouseState.X, _currentMouseState.Y);
+		public static Point RawMousePosition => new(_currentMouseState.X, _currentMouseState.Y);
 
 		/// <summary>
 		/// alias for scaledMousePosition

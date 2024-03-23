@@ -126,8 +126,8 @@ namespace Nez.BitmapFonts
 				var nameEndIndex = part.IndexOf('=');
 				if (nameEndIndex != -1)
 				{
-					var namePart = part.Substring(0, nameEndIndex);
-					var valuePart = part.Substring(nameEndIndex + 1);
+					var namePart = part[..nameEndIndex];
+					var valuePart = part[(nameEndIndex + 1)..];
 
 					if (string.Equals(name, namePart, StringComparison.OrdinalIgnoreCase))
 					{

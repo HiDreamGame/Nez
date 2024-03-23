@@ -9,7 +9,7 @@ namespace Nez
 	/// </summary>
 	public class VirtualAxis : VirtualInput
 	{
-		public List<Node> Nodes = new List<Node>();
+		public List<Node> Nodes = [];
 
 		public float Value
 		{

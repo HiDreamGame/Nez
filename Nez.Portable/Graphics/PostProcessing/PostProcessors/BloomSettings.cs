@@ -44,7 +44,7 @@ namespace Nez
 		/// Table of preset bloom settings. Note that BaseSat needs to be near 0 if the final render needs transparency!
 		/// </summary>
 		public static BloomSettings[] PresetSettings =
-		{
+		[
 			//                Thresh  Blur Bloom  Base  BloomSat BaseSat
 			new BloomSettings(0.1f, 0.6f, 2f, 1f, 1, 0), // Default
 			new BloomSettings(0, 3, 1, 1, 1, 1), // Soft
@@ -52,6 +52,6 @@ namespace Nez
 			new BloomSettings(0.25f, 8, 1.3f, 1, 1, 0), // Saturated
 			new BloomSettings(0, 2, 1, 0.1f, 1, 1), // Blurry
 			new BloomSettings(0.5f, 2, 1, 1, 1, 1), // Subtle
-		};
+		];
 	}
 }

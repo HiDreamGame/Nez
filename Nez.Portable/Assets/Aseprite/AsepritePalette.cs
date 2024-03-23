@@ -25,7 +25,7 @@ namespace Nez.Aseprite
 		internal AsepritePalette(int transparentIndex)
 		{
 			TransparentIndex = transparentIndex;
-			Colors = Array.Empty<Color>();
+			Colors = [];
 		}
 	}
 }

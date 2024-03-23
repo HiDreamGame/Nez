@@ -7,31 +7,31 @@ namespace Nez
 	public class ComponentList
 	{
 		// global updateOrder sort for the IUpdatable list
-		static IUpdatableComparer compareUpdatableOrder = new IUpdatableComparer();
+		static IUpdatableComparer compareUpdatableOrder = new();
 
 		Entity _entity;
 
 		/// <summary>
 		/// list of components added to the entity
 		/// </summary>
-		FastList<Component> _components = new FastList<Component>();
+		FastList<Component> _components = new();
 
 		/// <summary>
 		/// list of all Components that want update called
 		/// </summary>
-		FastList<IUpdatable> _updatableComponents = new FastList<IUpdatable>();
+		FastList<IUpdatable> _updatableComponents = new();
 
 		/// <summary>
 		/// The list of components that were added this frame. Used to group the components so we can process them simultaneously
 		/// </summary>
-		internal List<Component> _componentsToAdd = new List<Component>();
+		internal List<Component> _componentsToAdd = [];
 
 		/// <summary>
 		/// The list of components that were marked for removal this frame. Used to group the components so we can process them simultaneously
 		/// </summary>
-		List<Component> _componentsToRemove = new List<Component>();
+		List<Component> _componentsToRemove = [];
 
-		List<Component> _tempBufferList = new List<Component>();
+		List<Component> _tempBufferList = [];
 
 		/// <summary>
 		/// flag used to determine if we need to sort our Components this frame

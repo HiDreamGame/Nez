@@ -50,8 +50,8 @@ namespace Nez.Shadows
 		protected VisibilityComputer _visibility;
 
 		PolygonLightEffect _lightEffect;
-		FastList<short> _indices = new FastList<short>(50);
-		FastList<VertexPositionTexture> _vertices = new FastList<VertexPositionTexture>(20);
+		FastList<short> _indices = new(50);
+		FastList<VertexPositionTexture> _vertices = new(20);
 
 		// shared Collider cache used for querying for nearby geometry. Maxes out at 10 Colliders.
 		static protected Collider[] _colliderCache = new Collider[10];
@@ -169,9 +169,11 @@ namespace Nez.Shadows
 
 				if (debugDraw)
 				{
-					var rasterizerState = new RasterizerState();
-					rasterizerState.FillMode = FillMode.WireFrame;
-					rasterizerState.CullMode = CullMode.None;
+					var rasterizerState = new RasterizerState
+					{
+						FillMode = FillMode.WireFrame,
+						CullMode = CullMode.None
+					};
 					Core.GraphicsDevice.RasterizerState = rasterizerState;
 				}
 

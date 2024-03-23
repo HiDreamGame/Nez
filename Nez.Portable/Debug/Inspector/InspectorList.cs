@@ -42,8 +42,10 @@ namespace Nez
 			// if we have a component, stick a bool for enabled here
 			if (Target != null)
 			{
-				_enabledCheckbox = new CheckBox(string.Empty, skin);
-				_enabledCheckbox.ProgrammaticChangeEvents = false;
+				_enabledCheckbox = new CheckBox(string.Empty, skin)
+				{
+					ProgrammaticChangeEvents = false
+				};
 
 				if (Target is Component)
 					_enabledCheckbox.IsChecked = ((Component) Target).Enabled;

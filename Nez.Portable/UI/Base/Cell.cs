@@ -79,8 +79,7 @@ namespace Nez.UI
 		{
 			if (element != newElement)
 			{
-				if (element != null)
-					element.Remove();
+				element?.Remove();
 				element = newElement;
 				if (newElement != null)
 					table.AddElement(newElement);
@@ -1506,29 +1505,31 @@ namespace Nez.UI
 			if (!files)
 			{
 				files = true;
-				defaults = new Cell();
-				defaults.minWidth = Value.MinWidth;
-				defaults.minHeight = Value.MinHeight;
-				defaults.prefWidth = Value.PrefWidth;
-				defaults.prefHeight = Value.PrefHeight;
-				defaults.maxWidth = Value.MaxWidth;
-				defaults.maxHeight = Value.MaxHeight;
-				defaults.spaceTop = Value.Zero;
-				defaults.spaceLeft = Value.Zero;
-				defaults.spaceBottom = Value.Zero;
-				defaults.spaceRight = Value.Zero;
-				defaults.padTop = Value.Zero;
-				defaults.padLeft = Value.Zero;
-				defaults.padBottom = Value.Zero;
-				defaults.padRight = Value.Zero;
-				defaults.fillX = 0f;
-				defaults.fillY = 0f;
-				defaults.align = centeri;
-				defaults.expandX = 0;
-				defaults.expandY = 0;
-				defaults.colspan = 1;
-				defaults.uniformX = null;
-				defaults.uniformY = null;
+				defaults = new Cell
+				{
+					minWidth = Value.MinWidth,
+					minHeight = Value.MinHeight,
+					prefWidth = Value.PrefWidth,
+					prefHeight = Value.PrefHeight,
+					maxWidth = Value.MaxWidth,
+					maxHeight = Value.MaxHeight,
+					spaceTop = Value.Zero,
+					spaceLeft = Value.Zero,
+					spaceBottom = Value.Zero,
+					spaceRight = Value.Zero,
+					padTop = Value.Zero,
+					padLeft = Value.Zero,
+					padBottom = Value.Zero,
+					padRight = Value.Zero,
+					fillX = 0f,
+					fillY = 0f,
+					align = centeri,
+					expandX = 0,
+					expandY = 0,
+					colspan = 1,
+					uniformX = null,
+					uniformY = null
+				};
 			}
 
 			return defaults;

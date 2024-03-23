@@ -237,7 +237,7 @@ namespace Nez
 		/// clones and returns a new Rectangle with the same data as the current rectangle
 		/// </summary>
 		/// <param name="rect">Rect.</param>
-		public static Rectangle Clone(this Rectangle rect) => new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
+		public static Rectangle Clone(this Rectangle rect) => new(rect.X, rect.Y, rect.Width, rect.Height);
 
 
 		/// <summary>
@@ -510,9 +510,11 @@ namespace Nez
 		public static Vector2 GetClosestPointOnRectangleToPoint(ref Rectangle rect, Vector2 point)
 		{
 			// for each axis, if the point is outside the box clamp it to the box else leave it alone
-			var res = new Vector2();
-			res.X = MathHelper.Clamp(point.X, rect.Left, rect.Right);
-			res.Y = MathHelper.Clamp(point.Y, rect.Top, rect.Bottom);
+			var res = new Vector2
+			{
+				X = MathHelper.Clamp(point.X, rect.Left, rect.Right),
+				Y = MathHelper.Clamp(point.Y, rect.Top, rect.Bottom)
+			};
 
 			return res;
 		}
@@ -526,9 +528,11 @@ namespace Nez
 		public static Point GetClosestPointOnRectangleBorderToPoint(ref Rectangle rect, Vector2 point)
 		{
 			// for each axis, if the point is outside the box clamp it to the box else leave it alone
-			var res = new Point();
-			res.X = Mathf.Clamp((int) point.X, rect.Left, rect.Right);
-			res.Y = Mathf.Clamp((int) point.Y, rect.Top, rect.Bottom);
+			var res = new Point
+			{
+				X = Mathf.Clamp((int)point.X, rect.Left, rect.Right),
+				Y = Mathf.Clamp((int)point.Y, rect.Top, rect.Bottom)
+			};
 
 			// if point is inside the rectangle we need to push res to the border since it will be inside the rect
 			if (rect.Contains(res))
@@ -557,39 +561,39 @@ namespace Nez
 		/// </summary>
 		/// <returns>The center.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Vector2 GetCenter(ref Rectangle rect) => new Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
+		public static Vector2 GetCenter(ref Rectangle rect) => new(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
 
 		/// <summary>
 		/// gets the center point of the rectangle as a Vector2
 		/// </summary>
 		/// <returns>The center.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Vector2 GetCenter(this Rectangle rect) => new Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
+		public static Vector2 GetCenter(this Rectangle rect) => new(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
 
 		/// <summary>
 		/// gets the half size of the rect
 		/// </summary>
 		/// <returns>The half size.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Vector2 GetHalfSize(this Rectangle rect) => new Vector2(rect.Width * 0.5f, rect.Height * 0.5f);
+		public static Vector2 GetHalfSize(this Rectangle rect) => new(rect.Width * 0.5f, rect.Height * 0.5f);
 
 		/// <summary>
 		/// gets the max point of the rectangle, the bottom-right corner
 		/// </summary>
 		/// <returns>The max.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Point GetMax(ref Rectangle rect) => new Point(rect.Right, rect.Bottom);
+		public static Point GetMax(ref Rectangle rect) => new(rect.Right, rect.Bottom);
 
 		/// <summary>
 		/// Gets the size of the Rectangle
 		/// </summary>
-		public static Point GetSize(this Rectangle rect) => new Point(rect.Width, rect.Height);
+		public static Point GetSize(this Rectangle rect) => new(rect.Width, rect.Height);
 
 		/// <summary>
 		/// gets the position of the rectangle as a Vector2
 		/// </summary>
 		/// <returns>The position.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Vector2 GetPosition(ref Rectangle rect) => new Vector2(rect.X, rect.Y);
+		public static Vector2 GetPosition(ref Rectangle rect) => new(rect.X, rect.Y);
 	}
 }

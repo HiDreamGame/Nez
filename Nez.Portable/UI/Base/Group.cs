@@ -6,15 +6,14 @@ namespace Nez.UI
 {
 	public class Group : Element, ICullable
 	{
-		internal List<Element> children = new List<Element>();
+		internal List<Element> children = [];
 		protected bool transform = true;
 		Matrix _previousBatcherTransform;
 		Rectangle? _cullingArea;
 
 		public T AddElement<T>(T element) where T : Element
 		{
-			if (element.parent != null)
-				element.parent.RemoveElement(element);
+			element.parent?.RemoveElement(element);
 
 			children.Add(element);
 			element.SetParent(this);
@@ -27,8 +26,7 @@ namespace Nez.UI
 
 		public T InsertElement<T>(int index, T element) where T : Element
 		{
-			if (element.parent != null)
-				element.parent.RemoveElement(element);
+			element.parent?.RemoveElement(element);
 
 			if (index >= children.Count)
 				return AddElement(element);

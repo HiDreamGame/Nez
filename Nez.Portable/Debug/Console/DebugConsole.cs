@@ -64,6 +64,8 @@ namespace Nez.Console
 		public static Keys ConsoleKey = Keys.OemTilde;
 #if DEBUG
 		internal RuntimeInspector _runtimeInspector;
+		private static readonly string[] separator = ["\n"];
+		private static readonly char[] separatorArray = [' ', ','];
 #endif
 
 
@@ -75,10 +77,10 @@ namespace Nez.Console
 
 		public DebugConsole()
 		{
-			_commandHistory = new List<string>();
-			_drawCommands = new List<string>();
-			_commands = new Dictionary<string, CommandInfo>();
-			_sorted = new List<string>();
+			_commandHistory = [];
+			_drawCommands = [];
+			_commands = [];
+			_sorted = [];
 			_functionKeyActions = new Action[12];
 
 			BuildCommandsList();
@@ -90,10 +92,10 @@ namespace Nez.Console
 			Log(e.Message);
 
 			var str = e.StackTrace;
-			var parts = str.Split(new string[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
+			var parts = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 			foreach (var line in parts)
 			{
-				var lineWithoutPath = Regex.Replace(line, @"in\s\/.*?\/.*?(\w+\.cs)", "$1");
+				var lineWithoutPath = DebugConsoleRegex().Replace(line, "$1");
 				Log(lineWithoutPath);
 			}
 		}
@@ -114,7 +116,7 @@ namespace Nez.Console
 		public void Log(string str)
 		{
 			// split up multi-line logs and log each line seperately
-			var parts = str.Split(new string[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
+			var parts = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 			if (parts.Length > 1)
 			{
 				foreach (var line in parts)
@@ -133,7 +135,7 @@ namespace Nez.Console
 				{
 					if (str[i] == ' ')
 					{
-						if (Graphics.Instance.BitmapFont.MeasureString(str.Substring(0, i)).X * RenderScale <= maxWidth)
+						if (Graphics.Instance.BitmapFont.MeasureString(str[..i]).X * RenderScale <= maxWidth)
 							split = i;
 						else
 							break;
@@ -143,8 +145,8 @@ namespace Nez.Console
 				if (split == -1)
 					break;
 
-				_drawCommands.Insert(0, str.Substring(0, split));
-				str = str.Substring(split + 1);
+				_drawCommands.Insert(0, str[..split]);
+				str = str[(split + 1)..];
 			}
 
 			_drawCommands.Insert(0, str);
@@ -371,7 +373,7 @@ namespace Nez.Console
 					break;
 				case Keys.Back:
 					if (_currentText.Length > 0)
-						_currentText = _currentText.Substring(0, _currentText.Length - 1);
+						_currentText = _currentText[..^1];
 					break;
 				case Keys.Delete:
 					_currentText = "";
@@ -408,7 +410,7 @@ namespace Nez.Console
 						else
 						{
 							_tabIndex--;
-							if (_tabIndex < 0 || (_tabSearch != "" && _sorted[_tabIndex].IndexOf(_tabSearch) != 0))
+							if (_tabIndex < 0 || (_tabSearch != "" && !_sorted[_tabIndex].StartsWith(_tabSearch)))
 								FindLastTab();
 						}
 					}
@@ -423,7 +425,7 @@ namespace Nez.Console
 						{
 							_tabIndex++;
 							if (_tabIndex >= _sorted.Count ||
-							    (_tabSearch != "" && _sorted[_tabIndex].IndexOf(_tabSearch) != 0))
+							    (_tabSearch != "" && !_sorted[_tabIndex].StartsWith(_tabSearch)))
 								FindFirstTab();
 						}
 					}
@@ -466,7 +468,7 @@ namespace Nez.Console
 
 		void EnterCommand()
 		{
-			var data = _currentText.Split(new char[] {' ', ','}, StringSplitOptions.RemoveEmptyEntries);
+			var data = _currentText.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);
 			if (_commandHistory.Count == 0 || _commandHistory[0] != _currentText)
 				_commandHistory.Insert(0, _currentText);
 			_drawCommands.Insert(0, "> " + _currentText);
@@ -487,7 +489,7 @@ namespace Nez.Console
 		{
 			for (int i = 0; i < _sorted.Count; i++)
 			{
-				if (_tabSearch == "" || _sorted[i].IndexOf(_tabSearch) == 0)
+				if (_tabSearch == "" || _sorted[i].StartsWith(_tabSearch))
 				{
 					_tabIndex = i;
 					break;
@@ -499,7 +501,7 @@ namespace Nez.Console
 		void FindLastTab()
 		{
 			for (int i = 0; i < _sorted.Count; i++)
-				if (_tabSearch == "" || _sorted[i].IndexOf(_tabSearch) == 0)
+				if (_tabSearch == "" || _sorted[i].StartsWith(_tabSearch))
 					_tabIndex = i;
 		}
 
@@ -557,7 +559,7 @@ namespace Nez.Console
 					var yPosCurrentLineAddition = (i * LINE_HEIGHT * RenderScale) + (i * TEXT_PADDING_Y);
 					var position = new Vector2(HORIZONTAL_PADDING + TEXT_PADDING_X,
 						yPosFirstLine - yPosCurrentLineAddition);
-					var color = _drawCommands[i].IndexOf(">") == 0 ? Color.Yellow : Color.White;
+					var color = _drawCommands[i].StartsWith('>') ? Color.Yellow : Color.White;
 					Graphics.Instance.Batcher.DrawString(Graphics.Instance.BitmapFont, _drawCommands[i], position,
 						color, 0, Vector2.Zero, new Vector2(RenderScale), SpriteEffects.None, 0);
 				}
@@ -573,8 +575,8 @@ namespace Nez.Console
 
 		void ExecuteCommand(string command, string[] args)
 		{
-			if (_commands.ContainsKey(command))
-				_commands[command].Action(args);
+			if (_commands.TryGetValue(command, out CommandInfo value))
+				value.Action(args);
 			else
 				Log("Command '" + command + "' not found! Type 'help' for list of commands");
 		}
@@ -582,8 +584,7 @@ namespace Nez.Console
 
 		void ExecuteFunctionKeyAction(int num)
 		{
-			if (_functionKeyActions[num] != null)
-				_functionKeyActions[num]();
+			_functionKeyActions[num]?.Invoke();
 		}
 
 
@@ -622,13 +623,13 @@ namespace Nez.Console
 				// this is a nasty hack that lets us get at all the assemblies. It is only allowed to exist because this will never get
 				// hit in a release build.
 				var appDomainType = typeof(string).GetTypeInfo().Assembly.GetType("System.AppDomain");
-				var domain = appDomainType.GetRuntimeProperty("CurrentDomain").GetMethod.Invoke(null, new object[] { });
-				var assembliesMethod = ReflectionUtils.GetMethodInfo(domain, "GetAssemblies", new Type[] {});
+				var domain = appDomainType.GetRuntimeProperty("CurrentDomain").GetMethod.Invoke(null, []);
+				var assembliesMethod = ReflectionUtils.GetMethodInfo(domain, "GetAssemblies", []);
 
 				// not sure about arguments, detect in runtime
 				var methodCallParams = assembliesMethod.GetParameters().Length == 0
-					? new object[] { }
-					: new object[] {false};
+					? Array.Empty<object>()
+					: [false];
 				var assemblies = assembliesMethod.Invoke(domain, methodCallParams) as Assembly[];
 
 				var ignoredAssemblies = new string[]
@@ -683,8 +684,10 @@ namespace Nez.Console
 			}
 			else
 			{
-				var info = new CommandInfo();
-				info.Help = attr.Help;
+				var info = new CommandInfo
+				{
+					Help = attr.Help
+				};
 
 				var parameters = method.GetParameters();
 				var defaults = new object[parameters.Length];
@@ -791,7 +794,7 @@ namespace Nez.Console
 		static bool ArgBool(string arg)
 		{
 			if (arg != null)
-				return !(arg == "0" || arg.ToLower() == "false" || arg.ToLower() == "f");
+				return !(arg == "0" || arg.Equals("false", StringComparison.OrdinalIgnoreCase) || arg.Equals("f", StringComparison.OrdinalIgnoreCase));
 			else
 				return false;
 		}
@@ -821,6 +824,9 @@ namespace Nez.Console
 				return 0;
 			}
 		}
+
+		[GeneratedRegex(@"in\s\/.*?\/.*?(\w+\.cs)")]
+		private static partial Regex DebugConsoleRegex();
 
 		#endregion
 

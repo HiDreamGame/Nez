@@ -142,8 +142,7 @@ namespace Nez.UI
 				if (!_reverse)
 					y += (height + _spacing);
 
-				if (layout != null)
-					layout.Validate();
+				layout?.Validate();
 			}
 		}
 

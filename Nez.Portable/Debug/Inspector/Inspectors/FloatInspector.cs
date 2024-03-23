@@ -54,10 +54,8 @@ namespace Nez
 
 		public override void Update()
 		{
-			if (_textField != null)
-				_textField.SetText(GetValue<float>().ToString(CultureInfo.InvariantCulture));
-			if (_slider != null)
-				_slider.SetValue(GetValue<float>());
+			_textField?.SetText(GetValue<float>().ToString(CultureInfo.InvariantCulture));
+			_slider?.SetValue(GetValue<float>());
 		}
 	}
 }

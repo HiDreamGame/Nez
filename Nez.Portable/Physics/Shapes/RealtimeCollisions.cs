@@ -68,9 +68,11 @@ namespace Nez.PhysicsShapes.BETA
 		/// <param name="n">N.</param>
 		static Vector2 Corner(Rectangle b, int n)
 		{
-			var p = new Vector2();
-			p.X = (n & 1) == 0 ? b.Right : b.Left;
-			p.Y = (n & 1) == 0 ? b.Bottom : b.Top;
+			var p = new Vector2
+			{
+				X = (n & 1) == 0 ? b.Right : b.Left,
+				Y = (n & 1) == 0 ? b.Bottom : b.Top
+			};
 			return p;
 		}
 

@@ -26,6 +26,8 @@ namespace Nez.Svg
 			}
 		}
 
+		private static readonly char[] separator = [',', ' '];
+		private static readonly char[] separatorArray = [',', ' '];
 
 		public static List<SvgTransform> ParseTransforms(string transforms)
 		{
@@ -48,7 +50,7 @@ namespace Nez.Svg
 				{
 					case "translate":
 					{
-						var coords = contents.Split(new char[] {',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+						var coords = contents.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
 						if (coords.Length == 0 || coords.Length > 2)
 							throw new FormatException("Translate transforms must be in the format 'translate(x [,y])'");
@@ -68,7 +70,7 @@ namespace Nez.Svg
 
 					case "rotate":
 					{
-						var args = contents.Split(new char[] {',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+						var args = contents.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 						if (args.Length != 1 && args.Length != 3)
 							throw new FormatException(
 								"Rotate transforms must be in the format 'rotate(angle [cx cy ])'");
@@ -90,7 +92,7 @@ namespace Nez.Svg
 
 					case "scale":
 					{
-						var scales = contents.Split(new char[] {',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+						var scales = contents.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);
 
 						if (scales.Length == 0 || scales.Length > 2)
 							throw new FormatException("Scale transforms must be in the format 'scale(x [,y])'");
@@ -110,7 +112,7 @@ namespace Nez.Svg
 
 					case "matrix":
 					{
-						var points = contents.Split(new char[] {',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+						var points = contents.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);
 
 						if (points.Length != 6)
 							throw new FormatException(

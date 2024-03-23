@@ -14,7 +14,7 @@ namespace Nez.Systems
 
 		public Emitter()
 		{
-			_messageTable = new Dictionary<T, List<Action>>();
+			_messageTable = [];
 		}
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace Nez.Systems
 			List<Action> list = null;
 			if (!_messageTable.TryGetValue(eventType, out list))
 			{
-				list = new List<Action>();
+				list = [];
 				_messageTable.Add(eventType, list);
 			}
 
@@ -70,7 +70,7 @@ namespace Nez.Systems
 
 		public Emitter()
 		{
-			_messageTable = new Dictionary<T, List<Action<U>>>();
+			_messageTable = [];
 		}
 
 		/// <summary>
@@ -88,7 +88,7 @@ namespace Nez.Systems
 			List<Action<U>> list = null;
 			if (!_messageTable.TryGetValue(eventType, out list))
 			{
-				list = new List<Action<U>>();
+				list = [];
 				_messageTable.Add(eventType, list);
 			}
 

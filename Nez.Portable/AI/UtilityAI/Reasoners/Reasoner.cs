@@ -10,7 +10,7 @@ namespace Nez.AI.UtilityAI
 	{
 		public IConsideration<T> DefaultConsideration = new FixedScoreConsideration<T>();
 
-		protected List<IConsideration<T>> _considerations = new List<IConsideration<T>>();
+		protected List<IConsideration<T>> _considerations = [];
 
 
 		public IAction<T> Select(T context)

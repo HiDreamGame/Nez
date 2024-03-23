@@ -38,10 +38,10 @@ namespace Nez.UI
 
 		Vector2 _lastMousePosition;
 		Element _mouseOverElement;
-		private Dictionary<int, Element> _touchOverElement = new Dictionary<int, Element>();
-		List<Element> _inputFocusListeners = new List<Element>();
+		private Dictionary<int, Element> _touchOverElement = [];
+		List<Element> _inputFocusListeners = [];
 
-		static Keys[] _emptyKeys = new Keys[0];
+		static Keys[] _emptyKeys = [];
 		IKeyboardListener _keyboardFocusElement;
 		Keys[] _lastPressedKeys = _emptyKeys;
 		ITimer _keyRepeatTimer;
@@ -409,8 +409,7 @@ namespace Nez.UI
 								_keyRepeatTimer = Core.Schedule(_keyRepeatTime, true, this, t =>
 								{
 									var self = t.Context as Stage;
-									if (self._keyboardFocusElement != null)
-										self._keyboardFocusElement.KeyPressed(_repeatKey, _repeatKey.GetChar().Value);
+									self._keyboardFocusElement?.KeyPressed(_repeatKey, _repeatKey.GetChar().Value);
 								});
 							}
 						}
@@ -668,12 +667,10 @@ namespace Nez.UI
 				return;
 
 			var oldKeyboardFocus = _keyboardFocusElement;
-			if (oldKeyboardFocus != null)
-				oldKeyboardFocus.LostFocus();
+			oldKeyboardFocus?.LostFocus();
 
 			_keyboardFocusElement = element;
-			if (_keyboardFocusElement != null)
-				_keyboardFocusElement.GainedFocus();
+			_keyboardFocusElement?.GainedFocus();
 		}
 
 
@@ -689,11 +686,9 @@ namespace Nez.UI
 			if (_gamepadFocusElement == focusable)
 				return;
 
-			if (focusable != null)
-				focusable.OnFocused();
+			focusable?.OnFocused();
 
-			if (_gamepadFocusElement != null)
-				_gamepadFocusElement.OnUnfocused();
+			_gamepadFocusElement?.OnUnfocused();
 			_gamepadFocusElement = focusable;
 		}
 

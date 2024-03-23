@@ -72,16 +72,16 @@ namespace Nez
 		float _endWidth = 10;
 		float _maxWidth = 10;
 
-		FastList<SegmentPoint> _points = new FastList<SegmentPoint>();
+		FastList<SegmentPoint> _points = new();
 		BasicEffect _basicEffect;
 		bool _areVertsDirty = true;
 
 		// state required for calculating verts and rendering
-		Segment _firstSegment = new Segment();
-		Segment _secondSegment = new Segment();
-		Segment _lastSegment = new Segment();
-		FastList<short> _indices = new FastList<short>(50);
-		FastList<VertexPositionColorTexture> _vertices = new FastList<VertexPositionColorTexture>(50);
+		Segment _firstSegment = new();
+		Segment _secondSegment = new();
+		Segment _lastSegment = new();
+		FastList<short> _indices = new(50);
+		FastList<VertexPositionColorTexture> _vertices = new(50);
 
 
 		#region configuration

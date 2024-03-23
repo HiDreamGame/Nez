@@ -21,7 +21,7 @@ namespace Nez
 		}
 
 
-		Vector3 _sepiaTone = new Vector3(1.2f, 1.0f, 0.8f);
+		Vector3 _sepiaTone = new(1.2f, 1.0f, 0.8f);
 		EffectParameter _sepiaToneParam;
 
 

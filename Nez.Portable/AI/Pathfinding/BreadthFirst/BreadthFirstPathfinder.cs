@@ -14,8 +14,10 @@ namespace Nez.AI.Pathfinding
 			var frontier = new Queue<T>();
 			frontier.Enqueue(start);
 
-			cameFrom = new Dictionary<T, T>();
-			cameFrom.Add(start, start);
+			cameFrom = new Dictionary<T, T>
+			{
+				{ start, start }
+			};
 
 			while (frontier.Count > 0)
 			{

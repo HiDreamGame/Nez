@@ -23,10 +23,10 @@ namespace Nez.DeferredLighting
 		{
 			var points = new Vector2[]
 			{
-				new Vector2(1, 1),
-				new Vector2(0, 1),
-				new Vector2(0, 0),
-				new Vector2(1, 0)
+				new(1, 1),
+				new(0, 1),
+				new(0, 0),
+				new(1, 0)
 			};
 			return new PolygonMesh(points);
 		}

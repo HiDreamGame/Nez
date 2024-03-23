@@ -206,8 +206,7 @@ namespace Nez.Tweens
 
 			if (_tweenState == TweenState.Complete)
 			{
-				if (_completionHandler != null)
-					_completionHandler(this);
+				_completionHandler?.Invoke(this);
 
 				// if we have a nextTween add it to TweenManager so that it can start running
 				if (_nextTween != null)
@@ -385,8 +384,7 @@ namespace Nez.Tweens
 
 			if (_loopType == LoopType.RestartFromBeginning || _loops % 2 == 0)
 			{
-				if (_loopCompleteHandler != null)
-					_loopCompleteHandler(this);
+				_loopCompleteHandler?.Invoke(this);
 			}
 
 			// if we have loops left to process reset our state back to Running so we can continue processing them

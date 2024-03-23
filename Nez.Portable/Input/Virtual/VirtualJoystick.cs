@@ -10,7 +10,7 @@ namespace Nez
 	/// </summary>
 	public class VirtualJoystick : VirtualInput
 	{
-		public List<Node> Nodes = new List<Node>();
+		public List<Node> Nodes = [];
 		public bool Normalized;
 
 		public Vector2 Value

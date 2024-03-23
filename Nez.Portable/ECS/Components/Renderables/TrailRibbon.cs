@@ -21,7 +21,7 @@ namespace Nez
 		/// <summary>
 		/// end (tail) color of the ribbon
 		/// </summary>
-		public Color EndColor = new Color(255, 255, 0, 0);
+		public Color EndColor = new(255, 255, 0, 0);
 
 		/// <summary>
 		/// max pixel radius of the ribbon
@@ -32,7 +32,7 @@ namespace Nez
 		readonly int _ribbonLength = 50;
 
 		VertexPositionColor[] _vertices;
-		LinkedList<RibbonSegment> _segments = new LinkedList<RibbonSegment>();
+		LinkedList<RibbonSegment> _segments = new();
 		BasicEffect _basicEffect;
 		bool _areVertsDirty = true;
 

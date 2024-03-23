@@ -70,8 +70,7 @@ namespace Nez
 
 		public void Unload()
 		{
-			if (PixelTexture != null)
-				PixelTexture.Texture2D.Dispose();
+			PixelTexture?.Texture2D.Dispose();
 			PixelTexture = null;
 
 			Batcher.Dispose();

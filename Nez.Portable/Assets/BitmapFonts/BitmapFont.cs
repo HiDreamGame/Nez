@@ -405,6 +405,6 @@ namespace Nez.BitmapFonts
 			return GetGlyphs(ref source);
 		}
 
-		public BitmapFontEnumerator GetGlyphs(ref FontCharacterSource text) => new BitmapFontEnumerator(this, ref text);
+		public BitmapFontEnumerator GetGlyphs(ref FontCharacterSource text) => new(this, ref text);
 	}
 }

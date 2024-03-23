@@ -38,7 +38,7 @@ namespace Nez.Aseprite
 			IsNinePatch = isNinePatch;
 			HasPivot = hasPivot;
 			Name = name;
-			Keys = new List<AsepriteSliceKey>();
+			Keys = [];
 		}
 	}
 }

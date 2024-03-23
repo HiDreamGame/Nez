@@ -52,14 +52,14 @@ namespace Nez.Svg
 		public void StartFigure()
 		{
 			var method = ReflectionUtils.GetMethodInfo(_graphicsPath, "StartFigure");
-			method.Invoke(_graphicsPath, new object[0]);
+			method.Invoke(_graphicsPath, []);
 		}
 
 
 		public void CloseFigure()
 		{
 			var method = ReflectionUtils.GetMethodInfo(_graphicsPath, "CloseFigure");
-			method.Invoke(_graphicsPath, new object[0]);
+			method.Invoke(_graphicsPath, []);
 		}
 
 
@@ -89,7 +89,7 @@ namespace Nez.Svg
 		{
 			var pathPoints = PathPoints;
 			if (pathPoints.Length == 0)
-				return new Vector2[0];
+				return [];
 
 			var pts = new Vector2[pathPoints.Length];
 			var getX = ReflectionUtils.GetPropertyInfo(pathPoints.GetValue(0), "X");

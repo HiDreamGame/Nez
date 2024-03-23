@@ -117,7 +117,7 @@ namespace Nez.Aseprite
 		public Sprite ToSprite(bool onlyVisibleLayers = true, bool includeBackgroundLayer = false)
 		{
 			Color[] pixels = FlattenFrame(onlyVisibleLayers, includeBackgroundLayer);
-			Texture2D texture = new Texture2D(Core.GraphicsDevice, Width, Height);
+			Texture2D texture = new(Core.GraphicsDevice, Width, Height);
 			texture.SetData<Color>(pixels);
 			return new Sprite(texture);
 		}

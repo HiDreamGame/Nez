@@ -20,7 +20,7 @@ namespace Nez.AI.BehaviorTrees
 		/// <summary>
 		/// Stack nodes that we are build via the fluent API.
 		/// </summary>
-		Stack<Behavior<T>> _parentNodeStack = new Stack<Behavior<T>>();
+		Stack<Behavior<T>> _parentNodeStack = new();
 
 
 		public BehaviorTreeBuilder(T context)

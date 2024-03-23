@@ -11,7 +11,7 @@ namespace Nez
 	/// </summary>
 	public class VirtualIntegerAxis : VirtualInput
 	{
-		public List<VirtualAxis.Node> Nodes = new List<VirtualAxis.Node>();
+		public List<VirtualAxis.Node> Nodes = [];
 
 		public float FirstRepeatTime;
 		public float MultiRepeatTime;

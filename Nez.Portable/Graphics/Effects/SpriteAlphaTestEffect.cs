@@ -60,10 +60,11 @@ namespace Nez
 
 		void UpdateEffectParameter()
 		{
-			var value = new Vector3();
-
-			// reference alpha is packed in the x param
-			value.X = _referenceAlpha;
+			var value = new Vector3
+			{
+				// reference alpha is packed in the x param
+				X = _referenceAlpha
+			};
 
 			switch (_compareFunction)
 			{

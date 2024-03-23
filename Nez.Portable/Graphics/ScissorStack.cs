@@ -12,7 +12,7 @@ namespace Nez
 	/// </summary>
 	public static class ScissorStack
 	{
-		static Stack<Rectangle> _scissors = new Stack<Rectangle>();
+		static Stack<Rectangle> _scissors = new();
 
 
 		public static bool PushScissors(Rectangle scissor)
@@ -80,9 +80,11 @@ namespace Nez
 			if (camera != null)
 				tmp = camera.WorldToScreenPoint( tmp/camera.RawZoom );
 
-			var newScissor = new Rectangle();
-			newScissor.X = (int) tmp.X;
-			newScissor.Y = (int) tmp.Y;
+			var newScissor = new Rectangle
+			{
+				X = (int)tmp.X,
+				Y = (int)tmp.Y
+			};
 
 			// convert the bottom-right point to screen space
 			tmp.X = scissor.X + scissor.Width;
@@ -116,9 +118,11 @@ namespace Nez
 			if (camera != null)
 				tmp = camera.WorldToScreenPoint(tmp);
 
-			var newScissor = new Rectangle();
-			newScissor.X = (int) tmp.X;
-			newScissor.Y = (int) tmp.Y;
+			var newScissor = new Rectangle
+			{
+				X = (int)tmp.X,
+				Y = (int)tmp.Y
+			};
 
 			// convert the bottom-right point to screen space
 			tmp.X = scissor.X + scissor.Width;

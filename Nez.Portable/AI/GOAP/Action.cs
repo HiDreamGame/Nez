@@ -18,9 +18,9 @@ namespace Nez.AI.GOAP
 		public int Cost = 1;
 
 
-		internal HashSet<Tuple<string, bool>> _preConditions = new HashSet<Tuple<string, bool>>();
+		internal HashSet<Tuple<string, bool>> _preConditions = [];
 
-		internal HashSet<Tuple<string, bool>> _postConditions = new HashSet<Tuple<string, bool>>();
+		internal HashSet<Tuple<string, bool>> _postConditions = [];
 
 
 		public Action()

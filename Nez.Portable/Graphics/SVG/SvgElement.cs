@@ -19,7 +19,7 @@ namespace Nez.Svg
 			set
 			{
 				if (value.StartsWith("#"))
-					StrokeColor = ColorExt.HexToColor(value.Substring(1));
+					StrokeColor = ColorExt.HexToColor(value[1..]);
 			}
 		}
 
@@ -32,7 +32,7 @@ namespace Nez.Svg
 			set
 			{
 				if (value.StartsWith("#"))
-					FillColor = ColorExt.HexToColor(value.Substring(1));
+					FillColor = ColorExt.HexToColor(value[1..]);
 			}
 		}
 

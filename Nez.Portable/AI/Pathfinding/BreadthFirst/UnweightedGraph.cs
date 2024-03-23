@@ -9,7 +9,7 @@ namespace Nez.AI.Pathfinding
 	/// </summary>
 	public class UnweightedGraph<T> : IUnweightedGraph<T>
 	{
-		public Dictionary<T, T[]> Edges = new Dictionary<T, T[]>();
+		public Dictionary<T, T[]> Edges = [];
 
 
 		public UnweightedGraph<T> AddEdgesForNode(T node, T[] edges)

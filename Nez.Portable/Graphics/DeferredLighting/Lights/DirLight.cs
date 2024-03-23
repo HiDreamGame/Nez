@@ -15,7 +15,7 @@ namespace Nez.DeferredLighting
 		/// <summary>
 		/// direction of the light
 		/// </summary>
-		public Vector3 Direction = new Vector3(50, 20, 100);
+		public Vector3 Direction = new(50, 20, 100);
 
 		/// <summary>
 		/// specular intensity. 0 - 1 range

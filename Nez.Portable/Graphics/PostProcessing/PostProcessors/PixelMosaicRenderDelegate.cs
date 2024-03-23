@@ -25,8 +25,7 @@ namespace Nez
 
 		void CreateMosaicTexture(int size)
 		{
-			if (_mosaicTexture != null)
-				_mosaicTexture.Dispose();
+			_mosaicTexture?.Dispose();
 
 			_mosaicTexture = new Texture2D(Core.GraphicsDevice, size, size);
 			var colors = new uint[size * size];

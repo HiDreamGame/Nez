@@ -8,7 +8,7 @@ namespace Nez
 	/// </summary>
 	public static class Pool<T> where T : new()
 	{
-		private static Queue<T> _objectQueue = new Queue<T>(10);
+		private static Queue<T> _objectQueue = new(10);
 
 
 		/// <summary>
