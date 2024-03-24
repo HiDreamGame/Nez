@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Audio;
 using Nez.BitmapFonts;
 using Nez.Aseprite;
 using Nez.Assets;
+using static Nez.Systems.NezContentManager;
 
 
 namespace Nez.Systems
@@ -60,13 +61,13 @@ namespace Nez.Systems
 
 
 		public NezContentManager(IServiceProvider serviceProvider, string rootDirectory) : base(serviceProvider, rootDirectory)
-		{}
+		{ }
 
 		public NezContentManager(IServiceProvider serviceProvider) : base(serviceProvider)
-		{}
+		{ }
 
 		public NezContentManager() : base(((Game)Core._instance).Services, ((Game)Core._instance).Content.RootDirectory)
-		{}
+		{ }
 
 		#region Strongly Typed Loaders
 
@@ -481,7 +482,32 @@ namespace Nez.Systems
 
 			_loadedEffects.Clear();
 		}
+
+		public ContentDir OpenDir(string dirName) => new(this, null, dirName);
+		public FixedTypeContentDir<T> FixedType<T>() => new(this, null, "");
+		public class ContentDir(NezContentManager manager, ContentDir parent, string dirName)
+		{
+			public T Load<T>(string name)
+			{
+				name = dirName + '/' + name;
+				if (manager is not null) return manager.Load<T>(name);
+				return parent.Load<T>(name);
+			}
+			public ContentDir OpenDir(string dirName) => new(null, this, dirName);
+			public FixedTypeContentDir<T> FixedType<T>() => new(null, this, "");
+		}
+		public class FixedTypeContentDir<T>(NezContentManager manager, ContentDir parent, string dirName) : 
+			ContentDir(manager, parent, dirName)
+		{
+			public T Load(string name)
+			{
+				return Load<T>(name);
+			}
+			public new FixedTypeContentDir<T> OpenDir(string dirName) => new(null, this, dirName);
+		}
 	}
+
+	
 
 
 	/// <summary>
