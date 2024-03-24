@@ -10,7 +10,11 @@ namespace Nez.Package
 	[MemoryPackable]
 	public partial class PakHeader
 	{
-		public const int MAGIC_NUMBER = 0x45524448;
+		public const ulong MAGIC_NUMBER_STEAM = 0x5453_534552474448;
+		public const ulong MAGIC_NUMBER_ITCH = 0x5449_534552474448;
+
+		public const ulong MAGIC_NUMBER_COMMON = 0x0000_534552474448;
+		public const ulong MAGIC_NUMBER_MASK = 0x0000_ffffffffffff;
 		public Dictionary<string, PakFileData> files = [];
 	}
 	[MemoryPackable]

@@ -51,10 +51,10 @@ namespace Nez.Package
 			header.files.Add(PakFileData.GetStandardPath(path), fd);
 		}
 
-		public void Generate(Stream output)
+		public void Generate(Stream output, ulong magic = PakHeader.MAGIC_NUMBER_COMMON)
 		{
 			using var s = new BinaryWriter(output, Encoding.UTF8, true);
-			s.Write(PakHeader.MAGIC_NUMBER);
+			s.Write(magic);
 			var header = MemoryPackSerializer.Serialize(this.header);
 			s.Write(header.Length);
 			s.Write(header);

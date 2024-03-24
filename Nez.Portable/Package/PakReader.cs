@@ -18,15 +18,23 @@ namespace Nez.Package
 		public readonly PakHeader header;
 		public readonly long dataOffset;
 		private readonly Dictionary<PakFileData, WeakReference<byte[]>> decompressedDataCache = [];
+
+		public bool isSteam;
+		public bool isItch;
 		public unsafe PakReader(string pakPath)
 		{
 			file = MemoryMappedFile.CreateFromFile(pakPath, FileMode.Open);
 			using var stream = file.CreateViewStream(0, 0, MemoryMappedFileAccess.Read);
 			using var reader = new BinaryReader(stream);
-			if(reader.ReadInt32() != PakHeader.MAGIC_NUMBER)
+
+			var magic = reader.ReadUInt64();
+			if((magic & PakHeader.MAGIC_NUMBER_MASK) != PakHeader.MAGIC_NUMBER_COMMON)
 			{
 				throw new InvalidOperationException();
 			}
+			isSteam = magic == PakHeader.MAGIC_NUMBER_STEAM;
+			isItch = magic == PakHeader.MAGIC_NUMBER_ITCH;
+
 		    header = MemoryPackSerializer.Deserialize<PakHeader>(reader.ReadBytes(reader.ReadInt32()));
 			dataOffset = stream.Position;
 		}
