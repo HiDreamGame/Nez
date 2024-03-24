@@ -18,11 +18,13 @@ namespace Nez.Package
 	{
 		public static string GetStandardPath(string path)
 		{
-			return path.ToLower().Replace("\\", "/");
+			return path.ToLower().Replace('\\', '/').Replace("//", "/");
 		}
 
-		public string name;
 		public long offset;
 		public long size;
+		public long decompressedSize = -1;
+		public ulong crc;
+		public List<string> tags = [];
 	}
 }

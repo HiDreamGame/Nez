@@ -64,9 +64,10 @@ namespace Nez.Console
 		public static Keys ConsoleKey = Keys.OemTilde;
 #if DEBUG
 		internal RuntimeInspector _runtimeInspector;
+		
+#endif
 		private static readonly string[] separator = ["\n"];
 		private static readonly char[] separatorArray = [' ', ','];
-#endif
 
 
 		static DebugConsole()

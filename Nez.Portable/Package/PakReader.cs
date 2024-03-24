@@ -1,4 +1,6 @@
-﻿using MemoryPack;
+﻿using K4os.Compression.LZ4;
+using K4os.Compression.LZ4.Encoders;
+using MemoryPack;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,15 +15,13 @@ namespace Nez.Package
 	public class PakReader : IDisposable
 	{
 		public readonly MemoryMappedFile file;
-		public readonly MemoryMappedViewAccessor accessor;
 		public readonly PakHeader header;
 		public readonly long dataOffset;
-		public PakReader(string pakPath)
+		private readonly Dictionary<PakFileData, WeakReference<byte[]>> decompressedDataCache = [];
+		public unsafe PakReader(string pakPath)
 		{
 			file = MemoryMappedFile.CreateFromFile(pakPath, FileMode.Open);
-			accessor = file.CreateViewAccessor(0, 0, MemoryMappedFileAccess.Read);
-			
-			using var stream = file.CreateViewStream();
+			using var stream = file.CreateViewStream(0, 0, MemoryMappedFileAccess.Read);
 			using var reader = new BinaryReader(stream);
 			if(reader.ReadInt32() != PakHeader.MAGIC_NUMBER)
 			{
@@ -31,9 +31,43 @@ namespace Nez.Package
 			dataOffset = stream.Position;
 		}
 
-		public MemoryMappedViewStream OpenFile(PakFileData data)
+		public unsafe Stream OpenFile(PakFileData data)
 		{
-			return file.CreateViewStream(dataOffset + data.offset, data.size);
+			var vs = file.CreateViewStream(dataOffset + data.offset, data.size);
+			var handle = vs.SafeMemoryMappedViewHandle;
+			byte* filePointer = null;
+			handle.AcquirePointer(ref filePointer);
+			filePointer += vs.PointerOffset;
+			try
+			{
+				var crc = Crc64.Compute(filePointer, (int)data.size);
+				if(data.crc != crc)
+				{
+					throw new InvalidDataException();
+				}
+				if (data.decompressedSize > 0)
+				{
+					if (decompressedDataCache.TryGetValue(data, out var cache) && cache.TryGetTarget(out var resultBuffer))
+					{
+						return new MemoryStream(resultBuffer, false);
+					}
+					resultBuffer = new byte[data.decompressedSize];
+
+					if (LZ4Codec.Decode(new Span<byte>(filePointer, (int)data.size), resultBuffer) != data.decompressedSize)
+					{
+						throw new InvalidDataException();
+					}
+
+					cache = new(resultBuffer);
+					decompressedDataCache[data] = cache;
+					return new MemoryStream(resultBuffer, false);
+				}
+				return vs;
+			}
+			finally
+			{
+				handle.ReleasePointer();
+			}
 		}
 
 		public bool Exists(string path)

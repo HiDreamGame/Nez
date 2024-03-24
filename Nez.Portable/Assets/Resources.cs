@@ -23,7 +23,7 @@ namespace Nez.Assets
 		public static Stream OpenFile(string path)
 		{
 			var realPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", path);
-			if(File.Exists(realPath))
+			if(File.Exists(realPath) && false)
 			{
 				return File.Open(realPath, FileMode.Open, FileAccess.Read, FileShare.Read);
 			}
