@@ -16,6 +16,7 @@ using Nez.BitmapFonts;
 using Nez.Aseprite;
 using Nez.Assets;
 using static Nez.Systems.NezContentManager;
+using System.Diagnostics.CodeAnalysis;
 
 
 namespace Nez.Systems
@@ -88,7 +89,7 @@ namespace Nez.Systems
 					return tex;
 			}
 
-			using (var stream = Path.IsPathRooted(name) ? File.OpenRead(name) : TitleContainer.OpenStream(name))
+			using (var stream = Path.IsPathRooted(name) ? File.OpenRead(name) : Resources.OpenFile(name))
 			{
 				var texture = premultiplyAlpha ? TextureUtils.TextureFromStreamPreMultiplied(stream) : Texture2D.FromStream(Core.GraphicsDevice, stream);
 				texture.Name = name;
@@ -118,7 +119,7 @@ namespace Nez.Systems
 				}
 			}
 
-			using (var stream = Path.IsPathRooted(name) ? File.OpenRead(name) : TitleContainer.OpenStream(name))
+			using (var stream = Path.IsPathRooted(name) ? File.OpenRead(name) : Resources.OpenFile(name))
 			{
 				var sfx = SoundEffect.FromStream(stream);
 				LoadedAssets[name] = sfx;
@@ -257,7 +258,7 @@ namespace Nez.Systems
 		/// </summary>
 		/// <returns>The effect.</returns>
 		/// <param name="name">Name.</param>
-		public T LoadEffect<T>(string name) where T : Effect
+		public T LoadEffect<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] T>(string name) where T : Effect
 		{
 			// make sure the effect has the proper root directory
 			if (!name.StartsWith(RootDirectory))
@@ -275,7 +276,7 @@ namespace Nez.Systems
 		/// </summary>
 		/// <returns>The effect.</returns>
 		/// <param name="name">Name.</param>
-		public T LoadEffect<T>(string name, byte[] effectCode) where T : Effect
+		public T LoadEffect<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] T>(string name, byte[] effectCode) where T : Effect
 		{
 			var effect = Activator.CreateInstance(typeof(T), Core.GraphicsDevice, effectCode) as T;
 			effect.Name = name + "-" + Utils.RandomString(5);
@@ -291,7 +292,7 @@ namespace Nez.Systems
 		/// </summary>
 		/// <returns>The mono game effect.</returns>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		public T LoadMonoGameEffect<T>() where T : Effect
+		public T LoadMonoGameEffect<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] T>() where T : Effect
 		{
 			var effect = Activator.CreateInstance(typeof(T), Core.GraphicsDevice) as T;
 			effect.Name = typeof(T).Name + "-" + Utils.RandomString(5);

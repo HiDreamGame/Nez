@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nez.Textures;
+using Nez.Assets;
 
 namespace Nez.Sprites
 {
@@ -15,7 +16,7 @@ namespace Nez.Sprites
 		public static SpriteAtlas ParseSpriteAtlas(string dataFile, bool premultiplyAlpha = false)
 		{
 			var spriteAtlas = ParseSpriteAtlasData(dataFile);
-			using (var stream = TitleContainer.OpenStream(dataFile.Replace(".atlas", ".png")))
+			using (var stream = Resources.OpenFile(dataFile.Replace(".atlas", ".png")))
 				return spriteAtlas.AsSpriteAtlas(premultiplyAlpha ? TextureUtils.TextureFromStreamPreMultiplied(stream) : Texture2D.FromStream(Core.GraphicsDevice, stream));
 		}
 

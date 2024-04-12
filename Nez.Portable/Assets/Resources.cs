@@ -10,38 +10,62 @@ namespace Nez.Assets
 {
 	public static class Resources
 	{
-		public enum GamePlatform
-		{
-			None,
-			Steam,
-			Itch
-		}
-		public const string RESOURCES_FILE_NAME = "resources.pak";
+		public readonly static HashSet<string> XNBExtions = [
+			"png", "mp3", "mp4", "jpg", "json"
+		];
+		public const string RESOURCES_FILE_NAME = "app.res";
+		public static readonly bool allowLoadUnpackFile = string.Equals(Environment.GetEnvironmentVariable("HDG_allowLoadUnpackFile"), 
+										"true", StringComparison.OrdinalIgnoreCase);
 		public static readonly PakReader pak;
-		public static readonly GamePlatform platform = GamePlatform.None;
 		static Resources()
 		{
 			var pakPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, RESOURCES_FILE_NAME);
 			if(File.Exists(pakPath))
 			{
 				pak = new(pakPath);
-				if (pak.isSteam) platform = GamePlatform.Steam;
-				else if(pak.isItch) platform = GamePlatform.Itch;
 			}
 		}
-		public static Stream OpenFile(string path)
+		private static Stream InternalOpenFile(string path, bool nothrow)
 		{
-			var realPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", path);
-			if(File.Exists(realPath) && false)
+			if (allowLoadUnpackFile)
 			{
-				return File.Open(realPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				var realPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", path);
+				if (File.Exists(realPath))
+				{
+					return File.Open(realPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				}
 			}
-			if(pak != null)
+			if (pak?.TryOpenFile(path, out var result) ?? false)
 			{
-				return pak.OpenFile(path);
+				return result;
+			}
+			if(nothrow)
+			{
+				return null;
 			}
 			throw new FileNotFoundException(null, path);
 		}
-		
+		public static Stream OpenFile(string path)
+		{
+			if(XNBExtions.Contains(Path.GetExtension(path)?.ToLower()))
+			{
+				return InternalOpenFile(path, true) ?? InternalOpenFile(Path.ChangeExtension(path, "xnb"), false);
+			}
+			else
+			{
+				return InternalOpenFile(path, false);
+			}
+		}
+		public static byte[] ReadBytes(string path)
+		{
+			using var stream = OpenFile(path);
+			var buffer = new byte[stream.Length];
+			stream.ReadExactly(buffer);
+			return buffer;
+		}
+		public static string ReadString(string path)
+		{
+			return Encoding.UTF8.GetString(ReadBytes(path));
+		}
 	}
 }

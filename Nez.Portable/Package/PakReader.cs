@@ -28,12 +28,10 @@ namespace Nez.Package
 			using var reader = new BinaryReader(stream);
 
 			var magic = reader.ReadUInt64();
-			if((magic & PakHeader.MAGIC_NUMBER_MASK) != PakHeader.MAGIC_NUMBER_COMMON)
+			if(magic != PakHeader.MAGIC_NUMBER_COMMON)
 			{
 				throw new InvalidOperationException();
 			}
-			isSteam = magic == PakHeader.MAGIC_NUMBER_STEAM;
-			isItch = magic == PakHeader.MAGIC_NUMBER_ITCH;
 
 		    header = MemoryPackSerializer.Deserialize<PakHeader>(reader.ReadBytes(reader.ReadInt32()));
 			dataOffset = stream.Position;

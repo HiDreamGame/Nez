@@ -5,6 +5,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Nez.Assets;
 using Nez.Particles;
 
 namespace Nez.ParticleDesigner
@@ -17,7 +18,7 @@ namespace Nez.ParticleDesigner
 		/// </summary>
 		public static ParticleEmitterConfig Load(string name)
 		{
-			using (var stream = TitleContainer.OpenStream(name))
+			using (var stream = Resources.OpenFile(name))
 			{
 				using (var reader = XmlReader.Create(stream))
 				{
@@ -113,7 +114,7 @@ namespace Nez.ParticleDesigner
 			else
 			{
 				var path = Path.Combine(rootDir, (string)textureElement.Attribute("name"));
-				using (var stream = TitleContainer.OpenStream(path))
+				using (var stream = Resources.OpenFile(path))
 				{
 					var texture = Texture2D.FromStream(Core.GraphicsDevice, stream);
 					config.Sprite = new Textures.Sprite(texture);

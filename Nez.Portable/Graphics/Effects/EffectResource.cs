@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Nez.Assets;
 
 
 namespace Nez
@@ -94,13 +95,13 @@ namespace Nez
 		internal static byte[] GetMonoGameEmbeddedResourceBytes(string name)
 		{
 			var assembly = typeof(MathHelper).Assembly;
-#if FNA
-			name = name.Replace( ".ogl.mgfxo", ".fxb" );
-#else
+
+			//name = name.Replace(".ogl.", ".dx11.");
+
 			// MG 3.8 decided to change the location of Effecs...sigh.
 			if (!assembly.GetManifestResourceNames().Contains(name))
 				name = name.Replace(".Framework", ".Framework.Platform");
-#endif
+
 
 			using (var stream = assembly.GetManifestResourceStream(name))
 			{
@@ -128,7 +129,7 @@ namespace Nez
 			byte[] bytes;
 			try
 			{
-				using (var stream = TitleContainer.OpenStream(path))
+				using (var stream = Resources.OpenFile(path))
 				{
 					if (stream.CanSeek)
 					{

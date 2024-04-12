@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Nez.Assets;
 
 namespace Nez.Tiled
 {
@@ -15,7 +16,7 @@ namespace Nez.Tiled
 
 		public static TmxMap LoadTmxMap(this TmxMap map, string filepath)
 		{
-			using (var stream = TitleContainer.OpenStream(filepath))
+			using (var stream = Resources.OpenFile(filepath))
 			{
 				var xDoc = XDocument.Load(stream);
 				map.TmxDirectory = Path.GetDirectoryName(filepath);
@@ -154,7 +155,7 @@ namespace Nez.Tiled
 				source = Path.Combine(tmxDir, source);
 
 				// Everything else is in the TSX file
-				using (var stream = TitleContainer.OpenStream(source))
+				using (var stream = Resources.OpenFile(source))
 				{
 					var xDocTileset = XDocument.Load(stream);
 
@@ -417,7 +418,7 @@ namespace Nez.Tiled
 				template = Path.Combine(map.TmxDirectory, template);
 
 				// Everything else is in the TX file
-				using (var stream = TitleContainer.OpenStream(template))
+				using (var stream = Resources.OpenFile(template))
 				{
 					var xDocTemplate = XDocument.Load(stream);
 
@@ -744,7 +745,7 @@ namespace Nez.Tiled
 				// Append directory if present
 				image.Source = Path.Combine(tmxDir, (string)xSource);
 
-				using (var stream = TitleContainer.OpenStream(image.Source))
+				using (var stream = Resources.OpenFile(image.Source))
 					image.Texture = Texture2D.FromStream(Core.GraphicsDevice, stream);
 			}
 			else

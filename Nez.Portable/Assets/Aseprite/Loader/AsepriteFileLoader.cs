@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using Microsoft.Xna.Framework;
+using Nez.Assets;
 
 namespace Nez.Aseprite
 {
@@ -85,7 +86,7 @@ namespace Nez.Aseprite
 		/// </exception>
 		public static AsepriteFile Load(string name, bool premultiplyAlpha = false)
 		{
-			using (var stream = TitleContainer.OpenStream(name))
+			using (var stream = Resources.OpenFile(name))
 			{
 				using (BinaryReader reader = new(stream))
 				{
@@ -117,7 +118,7 @@ namespace Nez.Aseprite
 		{
 			file = null;
 
-			using (var stream = TitleContainer.OpenStream(name))
+			using (var stream = Resources.OpenFile(name))
 			{
 				try
 				{

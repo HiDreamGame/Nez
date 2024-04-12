@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Nez.Assets;
 
 
 namespace Nez.Svg
@@ -35,7 +36,7 @@ namespace Nez.Svg
 		/// <param name="pathBuilder">Path builder.</param>
 		public SvgDebugComponent(string pathToSvgFile, ISvgPathBuilder pathBuilder = null)
 		{
-			SvgDoc = SvgDocument.Open(TitleContainer.OpenStream("Content/" + pathToSvgFile));
+			SvgDoc = SvgDocument.Open(Resources.OpenFile("Content/" + pathToSvgFile));
 			_pathBuilder = pathBuilder;
 			_bounds = new RectangleF(0, 0, SvgDoc.Width, SvgDoc.Height);
 
