@@ -49,7 +49,7 @@ namespace Nez.Assets
 			{
 				return null;
 			}
-			throw new FileNotFoundException(null, path);
+			throw new FileNotFoundException(null, PakFileData.GetStandardPath(path));
 		}
 		public static Stream OpenFile(string path)
 		{

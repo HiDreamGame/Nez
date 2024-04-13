@@ -34,6 +34,7 @@ namespace Nez.Package
 				{
 					fd.decompressedSize = -1;
 					fd.crc = Crc64.Compute(data, data.Length);
+					fd.size = data.Length;
 					this.data.Write(data);
 				}
 				else

@@ -78,7 +78,7 @@ namespace Nez.Package
 
 		public bool Exists(string path)
 		{
-			return header.files.ContainsKey(path);
+			return header.files.ContainsKey(PakFileData.GetStandardPath(path));
 		}
 
 		public bool TryOpenFile(string path, out Stream stream)
