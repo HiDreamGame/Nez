@@ -70,7 +70,7 @@ namespace Nez.Package
 									if (prev3 == '/')
 									{
 										chi -= 4;
-										while (chi >= 0 && ch[--chi] != '/') ;
+										while (chi > 0 && ch[--chi] != '/') ;
 										continue;
 									}
 								}

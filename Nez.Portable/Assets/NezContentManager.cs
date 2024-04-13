@@ -80,7 +80,7 @@ namespace Nez.Systems
 		public Texture2D LoadTexture(string name, bool premultiplyAlpha = false)
 		{
 			// no file extension. Assumed to be an xnb so let ContentManager load it
-			if (string.IsNullOrEmpty(Path.GetExtension(name)))
+			if (Resources.IsXNB(name))
 				return Load<Texture2D>(name);
 
 			if (LoadedAssets.TryGetValue(name, out var asset))
@@ -108,7 +108,7 @@ namespace Nez.Systems
 		public SoundEffect LoadSoundEffect(string name)
 		{
 			// no file extension. Assumed to be an xnb so let ContentManager load it
-			if (string.IsNullOrEmpty(Path.GetExtension(name)))
+			if (Resources.IsXNB(name))
 				return Load<SoundEffect>(name);
 
 			if (LoadedAssets.TryGetValue(name, out var asset))
@@ -139,7 +139,7 @@ namespace Nez.Systems
 					return map;
 			}
 
-			var tiledMap = new TmxMap().LoadTmxMap(name);
+			var tiledMap = new TmxMap().LoadTmxMap(name, this);
 
 			LoadedAssets[name] = tiledMap;
 			DisposableAssets.Add(tiledMap);
@@ -468,7 +468,7 @@ namespace Nez.Systems
 
 		protected override Stream OpenStream(string assetName)
 		{
-			return Resources.OpenFile(assetName + ".xnb");
+			return Resources.OpenFile(assetName);
 		}
 
 		/// <summary>

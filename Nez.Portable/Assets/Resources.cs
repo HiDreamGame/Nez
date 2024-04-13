@@ -8,10 +8,16 @@ using System.Threading.Tasks;
 
 namespace Nez.Assets
 {
+	public enum ResourceType
+	{
+		XNB = 1,
+		Normal = 2
+	}
 	public static class Resources
 	{
+
 		public readonly static HashSet<string> XNBExtions = [
-			"png", "mp3", "mp4", "jpg", "json"
+			".png", ".mp3", ".mp4", ".jpg", ".json", "", null
 		];
 		public const string RESOURCES_FILE_NAME = "app.res";
 		public static readonly bool allowLoadUnpackFile = string.Equals(Environment.GetEnvironmentVariable("HDG_allowLoadUnpackFile"), 
@@ -56,6 +62,35 @@ namespace Nez.Assets
 				return InternalOpenFile(path, false);
 			}
 		}
+		private static ResourceType? InternalGetType(string path)
+		{
+			var result =  Path.GetExtension(path)?.ToLower() == ".xnb" ? ResourceType.XNB : ResourceType.Normal;
+			if (allowLoadUnpackFile)
+			{
+				var realPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", path);
+				if (File.Exists(realPath))
+				{
+					return result;
+				}
+			}
+			if(pak?.Exists(path) ?? false)
+			{
+				return result;
+			}
+			return null;
+		}
+		public static ResourceType? GetType(string path)
+		{
+			if (XNBExtions.Contains(Path.GetExtension(path)?.ToLower()))
+			{
+				return InternalGetType(path) ?? InternalGetType(Path.ChangeExtension(path, "xnb"));
+			}
+			else
+			{
+				return InternalGetType(path);
+			}
+		}
+		public static bool IsXNB(string path) => GetType(path) == ResourceType.XNB;
 		public static byte[] ReadBytes(string path)
 		{
 			using var stream = OpenFile(path);

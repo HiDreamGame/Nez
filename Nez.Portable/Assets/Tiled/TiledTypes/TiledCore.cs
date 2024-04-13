@@ -60,6 +60,7 @@ namespace Nez.Tiled
 
 	public class TmxImage : IDisposable
 	{
+		internal bool shouldDisposeTex = false;
 		public Texture2D Texture;
 		public string Source;
 		public string Format;
@@ -70,7 +71,7 @@ namespace Nez.Tiled
 
 		public void Dispose()
 		{
-			if (Texture != null)
+			if (Texture != null && shouldDisposeTex)
 			{
 				Texture.Dispose();
 				Texture = null;
